@@ -12,7 +12,8 @@ namespace FinancialPlotter.Interfaces
         List<IDailyQuery> Queries { get; }
         bool HasOptions { get; }
         Form OptionsForm { get; }
+        bool HasControlsForm { get; }
         Form ControlForm { get; }
-        void LoadData();
+        bool LoadData();
     }
 }

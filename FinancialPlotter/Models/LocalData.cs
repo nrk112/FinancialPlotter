@@ -37,16 +37,19 @@ namespace FinancialPlotter.Models
 
         public bool HasOptions
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
+        }
+
+        public bool HasControlsForm
+        {
+            get { return false; }
         }
 
         /// <summary>
         /// Displays the open file dialog to select the csv file to use.
         /// </summary>
-        public void LoadData()
+        /// <returns>True if successful</returns>
+        public bool LoadData()
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             string fileName;
@@ -59,7 +62,9 @@ namespace FinancialPlotter.Models
             {
                 fileName = openFileDialog1.FileName;
                 ParseFile(fileName);
+                return true;
             }
+            return false;
         }
 
         /// <summary>
@@ -98,6 +103,7 @@ namespace FinancialPlotter.Models
         /// <returns>The daily query.</returns>
         private DailyQuery CreateDailyQuery(string[] data)
         {
+            //TODO: Add some pattern matching here to accept files with different date types.
             string[] stringDate = data[0].Split('-');
             DateTime date = new DateTime(
                 Int32.Parse(stringDate[0]),

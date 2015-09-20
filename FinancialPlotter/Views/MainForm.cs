@@ -14,26 +14,40 @@ namespace FinancialPlotter.Views
     public partial class MainForm : Form
     {
         private int childFormNumber = 0;
-        private Models.YahooPlugin yahoo;
-        private Interfaces.IDataPlugin currentPlugin;
+        StandardControlsForm controlsForm;
+        Models.LocalData localData = new Models.LocalData();
 
         public MainForm()
         {
             InitializeComponent();
-            yahoo = new Models.YahooPlugin();
+            ShowControlForm();
         }
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            Form childForm = new Form();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Show();
+            GraphForm childGraph = new GraphForm(null);
+            childGraph.MdiParent = this;
+            childGraph.Text = "Graph " + childFormNumber++;
+            childGraph.Show();
+        }
+
+        private void ShowControlForm()
+        {
+            controlsForm = new StandardControlsForm();
+            controlsForm.MdiParent = this;
+            controlsForm.Dock = DockStyle.Right;
+            controlsForm.Show();
         }
 
         private void OpenFile(object sender, EventArgs e)
         {
-            //currentPlugin
+            if (localData.LoadData())
+            {
+                GraphForm childGraph = new GraphForm(localData.Queries);
+                childGraph.MdiParent = this;
+                childGraph.Text = "Graph " + childFormNumber++;
+                childGraph.Show();
+            }
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -52,6 +66,7 @@ namespace FinancialPlotter.Views
             this.Close();
         }
 
+        #region Editing functions
         private void CutToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
@@ -62,13 +77,8 @@ namespace FinancialPlotter.Views
 
         private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //textBox1.Text = yahoo.Response;
-            //pluginPanel = yahoo.ControlPanel;
-            //Invalidate();
-
-            Models.LocalData localData = new Models.LocalData();
-            List<Interfaces.IDailyQuery> queries = localData.Queries;
         }
+        #endregion
 
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -80,6 +90,7 @@ namespace FinancialPlotter.Views
             statusStrip.Visible = statusBarToolStripMenuItem.Checked;
         }
 
+        #region Window Sorting
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
@@ -99,6 +110,7 @@ namespace FinancialPlotter.Views
         {
             LayoutMdi(MdiLayout.ArrangeIcons);
         }
+        #endregion
 
         private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -106,6 +118,12 @@ namespace FinancialPlotter.Views
             {
                 childForm.Close();
             }
+        }
+
+        private void MainForm_MdiChildActivate(object sender, EventArgs e)
+        {
+            if (!(ActiveMdiChild is StandardControlsForm))
+                controlsForm.Graph = (GraphForm)ActiveMdiChild;
         }
     }
 }

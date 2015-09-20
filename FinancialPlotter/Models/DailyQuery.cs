@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinancialPlotter.Models
 {
-    class DailyQuery : Interfaces.IDailyQuery
+    public class DailyQuery : Interfaces.IDailyQuery
     {
         public DailyQuery(DateTime Date, float open, float high, float low, float close, float volume)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinancialPlotter.Interfaces
 {
-    interface IDailyQuery
+    public interface IDailyQuery
     {
         DateTime Date { get; }
         float Open { get; }
