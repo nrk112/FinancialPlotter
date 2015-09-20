@@ -8,7 +8,7 @@ namespace FinancialPlotter.Models
 {
     class DailyQuery : Interfaces.IDailyQuery
     {
-        public DailyQuery(DateTime Date, int open, int high, int low, int close, int volume)
+        public DailyQuery(DateTime Date, float open, float high, float low, float close, float volume)
         {
             this.Date = Date;
             this.Open = open;
@@ -19,7 +19,7 @@ namespace FinancialPlotter.Models
             this.AdjClose = 0;
         }
 
-        public DailyQuery(DateTime Date, int open, int high, int low, int close, int volume, int adjClose)
+        public DailyQuery(DateTime Date, float open, float high, float low, float close, float volume, float adjClose)
         {
             this.Date = Date;
             this.Open = open;
@@ -31,11 +31,11 @@ namespace FinancialPlotter.Models
         }
 
         public DateTime Date { get; }
-        public int Open { get; }
-        public int High { get; }
-        public int Low { get; }
-        public int Close { get; }
-        public int Volume { get; }
-        public int AdjClose { get; }
+        public float Open { get; }
+        public float High { get; }
+        public float Low { get; }
+        public float Close { get; }
+        public float Volume { get; }
+        public float AdjClose { get; }
     }
 }

@@ -48,7 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IDailyQuery.cs" />
     <Compile Include="Interfaces\IDataPlugin.cs" />
+    <Compile Include="Models\DailyQuery.cs" />
+    <Compile Include="Models\LocalData.cs" />
     <Compile Include="Models\SymbolQuery.cs" />
     <Compile Include="Models\YahooPlugin.cs" />
     <Compile Include="Program.cs" />

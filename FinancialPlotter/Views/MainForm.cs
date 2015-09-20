@@ -15,6 +15,7 @@ namespace FinancialPlotter.Views
     {
         private int childFormNumber = 0;
         private Models.YahooPlugin yahoo;
+        private Interfaces.IDataPlugin currentPlugin;
 
         public MainForm()
         {
@@ -32,13 +33,7 @@ namespace FinancialPlotter.Views
 
         private void OpenFile(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = openFileDialog.FileName;
-            }
+            //currentPlugin
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -68,8 +63,11 @@ namespace FinancialPlotter.Views
         private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //textBox1.Text = yahoo.Response;
-            pluginPanel = yahoo.ControlPanel;
-            Invalidate();
+            //pluginPanel = yahoo.ControlPanel;
+            //Invalidate();
+
+            Models.LocalData localData = new Models.LocalData();
+            List<Interfaces.IDailyQuery> queries = localData.Queries;
         }
 
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)

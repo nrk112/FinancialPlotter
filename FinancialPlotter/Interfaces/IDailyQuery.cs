@@ -9,11 +9,11 @@ namespace FinancialPlotter.Interfaces
     interface IDailyQuery
     {
         DateTime Date { get; }
-        int Open { get; }
-        int High { get; }
-        int Low { get; }
-        int Close { get; }
-        int Volume { get; }
-        int AdjClose { get; }
+        float Open { get; }
+        float High { get; }
+        float Low { get; }
+        float Close { get; }
+        float Volume { get; }
+        float AdjClose { get; }
     }
 }
