@@ -94,6 +94,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\TestData\AAPL.csv" />
+    <None Include="Resources\TestData\IBM.csv" />
+    <None Include="Resources\TestData\MSFT.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
