@@ -92,10 +92,8 @@ namespace FinancialPlotter.Views
         private float leftMargin = 0.0f;
         private float bottomMargin = 0.0f;
 
-        private Pen blackPen = new Pen(Color.Black, 0.2f);
-        private Pen redPen = new Pen(Color.Red, 0.2f);
-        private Pen bluePen = new Pen(Color.Blue, 0.2f);
-        private Pen greenPen = new Pen(Color.Green, 0.2f);
+        private Pen graphPen = new Pen(Color.Black, 0.2f);
+        //private Pen blackPen = new Pen(Color.Black, 0.2f);
         private GraphTransform graphTransform;
 
         /// <summary>
@@ -200,7 +198,10 @@ namespace FinancialPlotter.Views
 
         private void DrawGraphCandleSticks(Graphics g)
         {
-            Pen pen = new Pen(Color.Black, 0.2f);
+            graphPen.Color = Color.Black;
+            SolidBrush brushUp = new SolidBrush(ColorGraphCandleUp);
+            SolidBrush brushDown = new SolidBrush(ColorGraphCandleDown);
+
             float offset = 0.3f;
             float thickness = offset * 2;
 
@@ -209,14 +210,14 @@ namespace FinancialPlotter.Views
             {
                 if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
                 {
-                    g.DrawLine(pen, dayIndex, dailyQuery.High, dayIndex, dailyQuery.Low);
+                    g.DrawLine(graphPen, dayIndex, dailyQuery.High, dayIndex, dailyQuery.Low);
                     if (dailyQuery.Open < dailyQuery.Close)
                     {
-                        g.FillRectangle(Brushes.Blue, dayIndex - offset, dailyQuery.Open, thickness, (dailyQuery.Close - dailyQuery.Open));
+                        g.FillRectangle(brushDown, dayIndex - offset, dailyQuery.Open, thickness, (dailyQuery.Close - dailyQuery.Open));
                     }
                     else
                     {
-                        g.FillRectangle(Brushes.Red, dayIndex - offset, dailyQuery.Close, thickness, (dailyQuery.Open - dailyQuery.Close));
+                        g.FillRectangle(brushUp, dayIndex - offset, dailyQuery.Close, thickness, (dailyQuery.Open - dailyQuery.Close));
                     }
                     dayIndex += 1;
                 }
@@ -245,7 +246,8 @@ namespace FinancialPlotter.Views
                     dayIndex += 1;
                 }
             }
-            g.DrawPath(blackPen, gp);
+            graphPen.Color = ColorGraphOpen;
+            g.DrawPath(graphPen, gp);
         }
 
         private void DrawGraphClose(Graphics g)
@@ -270,7 +272,8 @@ namespace FinancialPlotter.Views
                     dayIndex += 1;
                 }
             }
-            g.DrawPath(redPen, gp);
+            graphPen.Color = ColorGraphClose;
+            g.DrawPath(graphPen, gp);
         }
 
         private void DrawGraphLow(Graphics g)
@@ -295,7 +298,8 @@ namespace FinancialPlotter.Views
                     dayIndex += 1;
                 }
             }
-            g.DrawPath(greenPen, gp);
+            graphPen.Color = ColorGraphLow;
+            g.DrawPath(graphPen, gp);
         }
 
         private void DrawGraphHigh(Graphics g)
@@ -320,7 +324,8 @@ namespace FinancialPlotter.Views
                     dayIndex += 1;
                 }
             }
-            g.DrawPath(bluePen, gp);
+            graphPen.Color = ColorGraphHigh;
+            g.DrawPath(graphPen, gp);
         }
 
         private void DrawMajorGrid(Graphics g)
@@ -330,6 +335,7 @@ namespace FinancialPlotter.Views
         private void DrawMinorGrid(Graphics g)
         {
         }
+
         private void DrawGraphMovAvg3(Graphics g)
         {
             using (GraphicsPath gp = new GraphicsPath())
@@ -371,7 +377,8 @@ namespace FinancialPlotter.Views
                         dayIndex++;
                     }
                 }
-                g.DrawPath(redPen, gp);
+                graphPen.Color = ColorGraphMov3;
+                g.DrawPath(graphPen, gp);
             }
         }
 
@@ -416,7 +423,8 @@ namespace FinancialPlotter.Views
                         dayIndex++;
                     }
                 }
-                g.DrawPath(redPen, gp);
+                graphPen.Color = ColorGraphMov2;
+                g.DrawPath(graphPen, gp);
             }
         }
 
@@ -461,11 +469,25 @@ namespace FinancialPlotter.Views
                         dayIndex++;
                     }
                 }
-                g.DrawPath(redPen, gp);
+                graphPen.Color = ColorGraphMov1;
+                g.DrawPath(graphPen, gp);
             }
         }
 
         private void GraphForm_ResizeEnd(object sender, EventArgs e)
+        {
+            this.GraphCandleSticks = tempCandleSticksEnabled;
+            Invalidate();
+        }
+
+        private void GraphForm_ResizeBegin(object sender, EventArgs e)
+        {
+            tempCandleSticksEnabled = this.GraphCandleSticks;
+            this.GraphCandleSticks = false;
+        }
+        private bool tempCandleSticksEnabled;
+
+        private void GraphForm_Resize(object sender, EventArgs e)
         {
             Invalidate();
         }

@@ -107,6 +107,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonColorClose = new System.Windows.Forms.Button();
+            this.colorDialogCloseGraph = new System.Windows.Forms.ColorDialog();
+            this.colorDialogMov1 = new System.Windows.Forms.ColorDialog();
+            this.colorDialogMov2 = new System.Windows.Forms.ColorDialog();
+            this.colorDialogMov3 = new System.Windows.Forms.ColorDialog();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonColorMov1 = new System.Windows.Forms.Button();
+            this.buttonColorMov2 = new System.Windows.Forms.Button();
+            this.buttonColorMov3 = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -617,6 +626,9 @@
             // 
             // groupBoxMovingAvg
             // 
+            this.groupBoxMovingAvg.Controls.Add(this.buttonColorMov3);
+            this.groupBoxMovingAvg.Controls.Add(this.buttonColorMov2);
+            this.groupBoxMovingAvg.Controls.Add(this.buttonColorMov1);
             this.groupBoxMovingAvg.Controls.Add(this.numericUpDownGraph3);
             this.groupBoxMovingAvg.Controls.Add(this.numericUpDownGraph2);
             this.groupBoxMovingAvg.Controls.Add(this.label3);
@@ -624,7 +636,7 @@
             this.groupBoxMovingAvg.Controls.Add(this.checkBoxMovAvg3);
             this.groupBoxMovingAvg.Controls.Add(this.checkBoxMovAvg2);
             this.groupBoxMovingAvg.Controls.Add(this.checkBoxMovAvg1);
-            this.groupBoxMovingAvg.Location = new System.Drawing.Point(11, 339);
+            this.groupBoxMovingAvg.Location = new System.Drawing.Point(11, 385);
             this.groupBoxMovingAvg.Name = "groupBoxMovingAvg";
             this.groupBoxMovingAvg.Size = new System.Drawing.Size(160, 118);
             this.groupBoxMovingAvg.TabIndex = 11;
@@ -640,7 +652,7 @@
             0,
             0});
             this.numericUpDownGraph3.Name = "numericUpDownGraph3";
-            this.numericUpDownGraph3.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDownGraph3.Size = new System.Drawing.Size(41, 20);
             this.numericUpDownGraph3.TabIndex = 6;
             this.numericUpDownGraph3.Value = new decimal(new int[] {
             100,
@@ -657,7 +669,7 @@
             0,
             0});
             this.numericUpDownGraph2.Name = "numericUpDownGraph2";
-            this.numericUpDownGraph2.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDownGraph2.Size = new System.Drawing.Size(41, 20);
             this.numericUpDownGraph2.TabIndex = 5;
             this.numericUpDownGraph2.Value = new decimal(new int[] {
             50,
@@ -668,7 +680,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(98, 21);
+            this.label3.Location = new System.Drawing.Point(74, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 4;
@@ -683,7 +695,7 @@
             0,
             0});
             this.numericUpDownGraph1.Name = "numericUpDownGraph1";
-            this.numericUpDownGraph1.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDownGraph1.Size = new System.Drawing.Size(41, 20);
             this.numericUpDownGraph1.TabIndex = 3;
             this.numericUpDownGraph1.Value = new decimal(new int[] {
             10,
@@ -723,7 +735,7 @@
             // 
             // buttonApply
             // 
-            this.buttonApply.Location = new System.Drawing.Point(11, 463);
+            this.buttonApply.Location = new System.Drawing.Point(11, 509);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(160, 23);
             this.buttonApply.TabIndex = 10;
@@ -733,6 +745,8 @@
             // 
             // groupBoxDisplayType
             // 
+            this.groupBoxDisplayType.Controls.Add(this.button1);
+            this.groupBoxDisplayType.Controls.Add(this.buttonColorClose);
             this.groupBoxDisplayType.Controls.Add(this.checkBoxClose);
             this.groupBoxDisplayType.Controls.Add(this.checkBoxOpen);
             this.groupBoxDisplayType.Controls.Add(this.checkBoxLow);
@@ -740,7 +754,7 @@
             this.groupBoxDisplayType.Controls.Add(this.checkBoxCandleSticks);
             this.groupBoxDisplayType.Location = new System.Drawing.Point(11, 238);
             this.groupBoxDisplayType.Name = "groupBoxDisplayType";
-            this.groupBoxDisplayType.Size = new System.Drawing.Size(160, 94);
+            this.groupBoxDisplayType.Size = new System.Drawing.Size(160, 141);
             this.groupBoxDisplayType.TabIndex = 9;
             this.groupBoxDisplayType.TabStop = false;
             this.groupBoxDisplayType.Text = "Graph Type";
@@ -758,7 +772,7 @@
             // checkBoxOpen
             // 
             this.checkBoxOpen.AutoSize = true;
-            this.checkBoxOpen.Location = new System.Drawing.Point(101, 43);
+            this.checkBoxOpen.Location = new System.Drawing.Point(7, 112);
             this.checkBoxOpen.Name = "checkBoxOpen";
             this.checkBoxOpen.Size = new System.Drawing.Size(52, 17);
             this.checkBoxOpen.TabIndex = 3;
@@ -778,7 +792,7 @@
             // checkBoxHigh
             // 
             this.checkBoxHigh.AutoSize = true;
-            this.checkBoxHigh.Location = new System.Drawing.Point(101, 20);
+            this.checkBoxHigh.Location = new System.Drawing.Point(7, 89);
             this.checkBoxHigh.Name = "checkBoxHigh";
             this.checkBoxHigh.Size = new System.Drawing.Size(48, 17);
             this.checkBoxHigh.TabIndex = 1;
@@ -841,6 +855,67 @@
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Start Date:";
+            // 
+            // buttonColorClose
+            // 
+            this.buttonColorClose.Location = new System.Drawing.Point(121, 68);
+            this.buttonColorClose.Name = "buttonColorClose";
+            this.buttonColorClose.Size = new System.Drawing.Size(28, 15);
+            this.buttonColorClose.TabIndex = 5;
+            this.buttonColorClose.UseVisualStyleBackColor = true;
+            this.buttonColorClose.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // colorDialogCloseGraph
+            // 
+            this.colorDialogCloseGraph.Color = System.Drawing.Color.Green;
+            // 
+            // colorDialogMov1
+            // 
+            this.colorDialogMov1.Color = System.Drawing.Color.LightCoral;
+            // 
+            // colorDialogMov2
+            // 
+            this.colorDialogMov2.Color = System.Drawing.Color.OrangeRed;
+            // 
+            // colorDialogMov3
+            // 
+            this.colorDialogMov3.Color = System.Drawing.Color.DarkOrange;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(121, 44);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(28, 13);
+            this.button1.TabIndex = 6;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorMov1
+            // 
+            this.buttonColorMov1.Location = new System.Drawing.Point(123, 39);
+            this.buttonColorMov1.Name = "buttonColorMov1";
+            this.buttonColorMov1.Size = new System.Drawing.Size(28, 13);
+            this.buttonColorMov1.TabIndex = 7;
+            this.buttonColorMov1.UseVisualStyleBackColor = true;
+            this.buttonColorMov1.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorMov2
+            // 
+            this.buttonColorMov2.Location = new System.Drawing.Point(123, 64);
+            this.buttonColorMov2.Name = "buttonColorMov2";
+            this.buttonColorMov2.Size = new System.Drawing.Size(28, 13);
+            this.buttonColorMov2.TabIndex = 8;
+            this.buttonColorMov2.UseVisualStyleBackColor = true;
+            this.buttonColorMov2.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorMov3
+            // 
+            this.buttonColorMov3.Location = new System.Drawing.Point(123, 86);
+            this.buttonColorMov3.Name = "buttonColorMov3";
+            this.buttonColorMov3.Size = new System.Drawing.Size(28, 13);
+            this.buttonColorMov3.TabIndex = 9;
+            this.buttonColorMov3.UseVisualStyleBackColor = true;
+            this.buttonColorMov3.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
             // MainForm
             // 
@@ -960,6 +1035,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePickerStart;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonColorClose;
+        private System.Windows.Forms.ColorDialog colorDialogCloseGraph;
+        private System.Windows.Forms.ColorDialog colorDialogMov1;
+        private System.Windows.Forms.ColorDialog colorDialogMov2;
+        private System.Windows.Forms.ColorDialog colorDialogMov3;
+        private System.Windows.Forms.Button buttonColorMov3;
+        private System.Windows.Forms.Button buttonColorMov2;
+        private System.Windows.Forms.Button buttonColorMov1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

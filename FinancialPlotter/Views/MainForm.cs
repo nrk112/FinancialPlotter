@@ -14,12 +14,15 @@ namespace FinancialPlotter.Views
     public partial class MainForm : Form
     {
         private int childFormNumber = 0;
-        StandardControlsForm controlsForm;
 
         public MainForm()
         {
             InitializeComponent();
-            //ShowControlForm();
+
+            buttonColorClose.BackColor = colorDialogCloseGraph.Color;
+            buttonColorMov1.BackColor = colorDialogMov1.Color;
+            buttonColorMov2.BackColor = colorDialogMov2.Color;
+            buttonColorMov3.BackColor = colorDialogMov3.Color;
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -30,14 +33,6 @@ namespace FinancialPlotter.Views
             childGraph.Show();
         }
 
-        private void ShowControlForm()
-        {
-            controlsForm = new StandardControlsForm();
-            controlsForm.MdiParent = this;
-            controlsForm.Dock = DockStyle.Right;
-            controlsForm.Show();
-        }
-
         private void OpenFile(object sender, EventArgs e)
         {
             Models.LocalData localData = new Models.LocalData();
@@ -45,7 +40,7 @@ namespace FinancialPlotter.Views
             {
                 GraphForm childGraph = new GraphForm(localData.Queries);
                 childGraph.MdiParent = this;
-                childGraph.Text = "Graph " + childFormNumber++;
+                childGraph.Text = localData.FileName;
                 childGraph.Show();
             }
         }
@@ -123,18 +118,9 @@ namespace FinancialPlotter.Views
         private void MainForm_MdiChildActivate(object sender, EventArgs e)
         {
             graph = (GraphForm)ActiveMdiChild;
-            setControlPanelState();
-
-
-
-            //if (!(ActiveMdiChild is StandardControlsForm) && ActiveMdiChild != lastActiveForm)
-            //{
-            //    controlsForm.Graph = (GraphForm)ActiveMdiChild;
-            //    lastActiveForm = (GraphForm)ActiveMdiChild;
-            //} 
+            SetControlPanelState();
+            SetGraphState();
         }
-        private Form lastActiveForm;
-
 
         #region Control Panel
         GraphForm graph;
@@ -171,7 +157,7 @@ namespace FinancialPlotter.Views
         /// <summary>
         /// Applies the graphs settings to the controls in the control panel.
         /// </summary>
-        private void setControlPanelState()
+        private void SetControlPanelState()
         {
             if (graph == null)
             {
@@ -183,7 +169,7 @@ namespace FinancialPlotter.Views
             {
                 controlPanel.Enabled = true;
 
-                labelEditing.Text = "Editing: " + graph.Text;
+                labelEditing.Text = "Viewing: " + graph.Text;
                 checkBoxMinorGrid.Checked = graph.GraphMinorGridLines;
                 checkBoxMajorGrid.Checked = graph.GraphMajorGridLines;
                 checkBoxCandleSticks.Checked = graph.GraphCandleSticks;
@@ -219,6 +205,63 @@ namespace FinancialPlotter.Views
                 dateTimePickerStart.Value = graph.StartDate;
             }
         }
+
+        private void SetGraphState()
+        {
+            if (graph == null) return;
+
+            graph.ColorGraphClose = colorDialogCloseGraph.Color;
+            graph.ColorGraphMov1 = colorDialogMov1.Color;
+            graph.ColorGraphMov2 = colorDialogMov2.Color;
+            graph.ColorGraphMov3 = colorDialogMov3.Color;
+            graph.ColorGraphOpen = Color.Black;
+            graph.ColorGraphHigh = Color.Black;
+            graph.ColorGraphLow = Color.Black;
+            graph.ColorGraphCandleDown = Color.Pink;
+            graph.ColorGraphCandleUp = Color.Turquoise;
+        }
         #endregion
+
+        private void buttonColorPicker_Click(object sender, EventArgs e)
+        {
+            Button colorButton = (Button)sender;
+
+            if (colorButton.Equals(buttonColorClose))
+            {
+                DialogResult result = colorDialogCloseGraph.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    graph.ColorGraphClose = colorDialogCloseGraph.Color;
+                    buttonColorClose.BackColor = colorDialogCloseGraph.Color;
+                }
+            }
+            else if (colorButton.Equals(buttonColorMov1))
+            {
+                DialogResult result = colorDialogMov1.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    graph.ColorGraphMov1 = colorDialogMov1.Color;
+                    buttonColorMov1.BackColor = colorDialogMov1.Color;
+                }
+            }
+            else if (colorButton.Equals(buttonColorMov2))
+            {
+                DialogResult result = colorDialogMov2.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    graph.ColorGraphMov1 = colorDialogMov1.Color;
+                    buttonColorMov1.BackColor = colorDialogMov1.Color;
+                }
+            }
+            else if (colorButton.Equals(buttonColorMov3))
+            {
+                DialogResult result = colorDialogMov3.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    graph.ColorGraphMov1 = colorDialogMov1.Color;
+                    buttonColorMov1.BackColor = colorDialogMov1.Color;
+                }
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace FinancialPlotter.Models
 {
     class LocalData : IDataPlugin
     {
+        public string FileName { get; private set; }
 
         public LocalData()
         {
@@ -52,16 +53,15 @@ namespace FinancialPlotter.Models
         public bool LoadData()
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            string fileName;
-
+            
             openFileDialog1.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                fileName = openFileDialog1.FileName;
-                ParseFile(fileName);
+                FileName = openFileDialog1.FileName;
+                ParseFile(FileName);
                 return true;
             }
             return false;
