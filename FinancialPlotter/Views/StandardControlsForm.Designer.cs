@@ -81,7 +81,6 @@
             this.dateTimePickerEnd.Name = "dateTimePickerEnd";
             this.dateTimePickerEnd.Size = new System.Drawing.Size(99, 20);
             this.dateTimePickerEnd.TabIndex = 3;
-            this.dateTimePickerEnd.ValueChanged += new System.EventHandler(this.dateTimePickerEnd_ValueChanged);
             // 
             // label2
             // 
@@ -99,7 +98,6 @@
             this.dateTimePickerStart.Name = "dateTimePickerStart";
             this.dateTimePickerStart.Size = new System.Drawing.Size(99, 20);
             this.dateTimePickerStart.TabIndex = 1;
-            this.dateTimePickerStart.ValueChanged += new System.EventHandler(this.dateTimePickerStart_ValueChanged);
             // 
             // label1
             // 
@@ -203,16 +201,36 @@
             // numericUpDownGraph3
             // 
             this.numericUpDownGraph3.Location = new System.Drawing.Point(76, 84);
+            this.numericUpDownGraph3.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDownGraph3.Name = "numericUpDownGraph3";
             this.numericUpDownGraph3.Size = new System.Drawing.Size(73, 20);
             this.numericUpDownGraph3.TabIndex = 6;
+            this.numericUpDownGraph3.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // numericUpDownGraph2
             // 
             this.numericUpDownGraph2.Location = new System.Drawing.Point(76, 60);
+            this.numericUpDownGraph2.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDownGraph2.Name = "numericUpDownGraph2";
             this.numericUpDownGraph2.Size = new System.Drawing.Size(73, 20);
             this.numericUpDownGraph2.TabIndex = 5;
+            this.numericUpDownGraph2.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             // 
             // label3
             // 
@@ -226,9 +244,19 @@
             // numericUpDownGraph1
             // 
             this.numericUpDownGraph1.Location = new System.Drawing.Point(76, 37);
+            this.numericUpDownGraph1.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDownGraph1.Name = "numericUpDownGraph1";
             this.numericUpDownGraph1.Size = new System.Drawing.Size(73, 20);
             this.numericUpDownGraph1.TabIndex = 3;
+            this.numericUpDownGraph1.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // checkBoxMovAvg3
             // 
@@ -297,9 +325,9 @@
             this.labelEditing.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEditing.Location = new System.Drawing.Point(13, 13);
             this.labelEditing.Name = "labelEditing";
-            this.labelEditing.Size = new System.Drawing.Size(68, 17);
+            this.labelEditing.Size = new System.Drawing.Size(73, 17);
             this.labelEditing.TabIndex = 7;
-            this.labelEditing.Text = "Editing: ";
+            this.labelEditing.Text = "Viewing: ";
             // 
             // StandardControlsForm
             // 

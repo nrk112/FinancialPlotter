@@ -89,6 +89,7 @@ namespace FinancialPlotter.Models
                         Queries.Add(CreateDailyQuery(query));
                     }
                 }
+                Queries.Reverse();
             }
             catch (IOException)
             {
@@ -103,15 +104,8 @@ namespace FinancialPlotter.Models
         /// <returns>The daily query.</returns>
         private DailyQuery CreateDailyQuery(string[] data)
         {
-            //TODO: Add some pattern matching here to accept files with different date types.
-            string[] stringDate = data[0].Split('-');
-            DateTime date = new DateTime(
-                Int32.Parse(stringDate[0]),
-                Int32.Parse(stringDate[1]),
-                Int32.Parse(stringDate[2]));
-
             DailyQuery dq = new DailyQuery(
-                date,
+                Convert.ToDateTime(data[0]),
                 float.Parse(data[1]),
                 float.Parse(data[2]),
                 float.Parse(data[3]),

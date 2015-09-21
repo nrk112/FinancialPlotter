@@ -1,4 +1,5 @@
 ﻿using FinancialPlotter.Interfaces;
+using FinancialPlotter.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,19 +9,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace FinancialPlotter.Views
 {
     public partial class GraphForm : Form
     {
+        /// <summary>
+        /// Constructor for class.
+        /// </summary>
+        /// <param name="queries">Dataset to be used for graphing.</param>
         public GraphForm(List<IDailyQuery> queries)
         {
-            this.queries = queries;
+            this.Queries = queries;
+            if (queries != null)
+            {
+                MinStartDate = StartDate = Queries.First().Date;
+                MaxEndDate = EndDate = Queries.Last().Date;
+            }
+
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Repaints the graph form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GraphForm_Paint(object sender, PaintEventArgs e)
         {
+            SetupGraphingTransform();
+
+            if (this.WindowState != FormWindowState.Minimized)
+            {
+                e.Graphics.Transform = graphTransform.matrix;
+            }
+
             if (GraphMajorGridLines) DrawMajorGrid(e.Graphics);
             if (GraphMinorGridLines) DrawMinorGrid(e.Graphics);
             if (GraphHigh) DrawGraphHigh(e.Graphics);
@@ -33,13 +57,9 @@ namespace FinancialPlotter.Views
             if (GraphMovAvg3) DrawGraphMovAvg3(e.Graphics);
         }
 
-        private List<IDailyQuery> queries;
+        #region Properties **********************
 
-        public List<IDailyQuery> Queries
-        {
-            get { return queries; }
-            set { queries = value; }
-        }
+        public List<IDailyQuery> Queries { get; set; }
         public bool GraphMajorGridLines { get; set; }
         public bool GraphMinorGridLines { get; set; }
         public bool GraphHigh { get; set; }
@@ -55,9 +75,61 @@ namespace FinancialPlotter.Views
         public int MovAvg3Days { get; private set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public DateTime MinStartDate { get; private set; }
+        public DateTime MaxEndDate { get; private set; }
+        public Color ColorGraphHigh { get; set; }
+        public Color ColorGraphLow { get; set; }
+        public Color ColorGraphClose { get; set; }
+        public Color ColorGraphOpen { get; set; }
+        public Color ColorGraphMov1 { get; set; }
+        public Color ColorGraphMov2 { get; set; }
+        public Color ColorGraphMov3 { get; set; }
+        public Color ColorGraphCandleUp { get; set; }
+        public Color ColorGraphCandleDown { get; set; }
 
+        #endregion Properties **********************
 
-        private Pen blackPen = new Pen(Color.Black);
+        private float leftMargin = 0.0f;
+        private float bottomMargin = 0.0f;
+
+        private Pen blackPen = new Pen(Color.Black, 0.2f);
+        private Pen redPen = new Pen(Color.Red, 0.2f);
+        private Pen bluePen = new Pen(Color.Blue, 0.2f);
+        private Pen greenPen = new Pen(Color.Green, 0.2f);
+        private GraphTransform graphTransform;
+
+        /// <summary>
+        /// Configure the graphing transform object.
+        /// </summary>
+        private void SetupGraphingTransform()
+        {
+            Rectangle winRect = this.ClientRectangle;
+            Rectangle subWinRect = winRect;
+
+            float u1 = subWinRect.X;
+            float v1 = subWinRect.Y;
+            float u2 = subWinRect.X + subWinRect.Width;
+            float v2 = subWinRect.Y + subWinRect.Height;
+
+            //Constraints that determine the size of the graph to be translated onto the window. 
+            float x1 = 0;
+            float y1 = MaxValue;
+            float x2 = getDaysCountInRange();
+            float y2 = MinValue;
+            graphTransform = new GraphTransform(u1, v1, u2, v2, x1, y1, x2, y2, leftMargin, bottomMargin);
+        }
+
+        private float getDaysCountInRange()
+        {
+            float dayIndex = 0.0f;
+            foreach (IDailyQuery dailyQuery in Queries)
+            {
+                if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                    dayIndex++;
+            }
+            return dayIndex;
+            //return (float)(EndDate - StartDate).TotalDays;
+        }
 
         /// <summary>
         /// Sets the values needed to graph the moving averages.
@@ -86,54 +158,311 @@ namespace FinancialPlotter.Views
             }
         }
 
+        /// <summary>
+        /// Property that calculates the maximum value in the data set of this graph.
+        /// </summary>
+        public float MaxValue
+        {
+            get
+            {
+                float highest = 0.0f;
+                foreach (IDailyQuery dailyQuery in Queries)
+                {
+                    if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                    {
+                        if (dailyQuery.High > highest)
+                            highest = dailyQuery.High;
+                    }
+                }
+                return highest;
+            }
+        }
+
+        /// <summary>
+        /// Property that calculates the minimum value in the data set of this graph.
+        /// </summary>
+        public float MinValue
+        {
+            get
+            {
+                float lowest = 9999.9f;
+                foreach (IDailyQuery dailyQuery in Queries)
+                {
+                    if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                    {
+                        if (dailyQuery.Low < lowest && dailyQuery.Low != 0.0f)
+                            lowest = dailyQuery.Low;
+                    }
+                }
+                return lowest;
+            }
+        }
+
         private void DrawGraphCandleSticks(Graphics g)
         {
-            //throw new NotImplementedException();
+            Pen pen = new Pen(Color.Black, 0.2f);
+            float offset = 0.3f;
+            float thickness = offset * 2;
+
+            int dayIndex = 0;
+            foreach (IDailyQuery dailyQuery in Queries)
+            {
+                if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                {
+                    g.DrawLine(pen, dayIndex, dailyQuery.High, dayIndex, dailyQuery.Low);
+                    if (dailyQuery.Open < dailyQuery.Close)
+                    {
+                        g.FillRectangle(Brushes.Blue, dayIndex - offset, dailyQuery.Open, thickness, (dailyQuery.Close - dailyQuery.Open));
+                    }
+                    else
+                    {
+                        g.FillRectangle(Brushes.Red, dayIndex - offset, dailyQuery.Close, thickness, (dailyQuery.Open - dailyQuery.Close));
+                    }
+                    dayIndex += 1;
+                }
+            }
         }
 
         private void DrawGraphOpen(Graphics g)
         {
-            //throw new NotImplementedException();
+            GraphicsPath gp = new GraphicsPath();
+            PointF firstPoint = new PointF();
+            PointF secondPoint = new PointF();
+            int dayIndex = 0;
+            foreach (IDailyQuery dailyQuery in Queries)
+            {
+                if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                {
+                    if (dayIndex %2 == 0)
+                    {
+                        firstPoint = new PointF(dayIndex, dailyQuery.Open);
+                    }
+                    else
+                    {
+                        secondPoint = new PointF(dayIndex, dailyQuery.Open);
+                        gp.AddLine(firstPoint, secondPoint);
+                    }
+                    dayIndex += 1;
+                }
+            }
+            g.DrawPath(blackPen, gp);
         }
 
         private void DrawGraphClose(Graphics g)
         {
-            //throw new NotImplementedException();
+            GraphicsPath gp = new GraphicsPath();
+            PointF firstPoint = new PointF();
+            PointF secondPoint = new PointF();
+            int dayIndex = 0;
+            foreach (IDailyQuery dailyQuery in Queries)
+            {
+                if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                {
+                    if (dayIndex % 2 == 0)
+                    {
+                        firstPoint = new PointF(dayIndex, dailyQuery.Close);
+                    }
+                    else
+                    {
+                        secondPoint = new PointF(dayIndex, dailyQuery.Close);
+                        gp.AddLine(firstPoint, secondPoint);
+                    }
+                    dayIndex += 1;
+                }
+            }
+            g.DrawPath(redPen, gp);
         }
 
         private void DrawGraphLow(Graphics g)
         {
-            //throw new NotImplementedException();
+            GraphicsPath gp = new GraphicsPath();
+            PointF firstPoint = new PointF();
+            PointF secondPoint = new PointF();
+            int dayIndex = 0;
+            foreach (IDailyQuery dailyQuery in Queries)
+            {
+                if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                {
+                    if (dayIndex % 2 == 0)
+                    {
+                        firstPoint = new PointF(dayIndex, dailyQuery.Low);
+                    }
+                    else
+                    {
+                        secondPoint = new PointF(dayIndex, dailyQuery.Low);
+                        gp.AddLine(firstPoint, secondPoint);
+                    }
+                    dayIndex += 1;
+                }
+            }
+            g.DrawPath(greenPen, gp);
         }
 
         private void DrawGraphHigh(Graphics g)
         {
-            //throw new NotImplementedException();
+            GraphicsPath gp = new GraphicsPath();
+            PointF firstPoint = new PointF();
+            PointF secondPoint = new PointF();
+            int dayIndex = 0;
+            foreach (IDailyQuery dailyQuery in Queries)
+            {
+                if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                {
+                    if (dayIndex % 2 == 0)
+                    {
+                        firstPoint = new PointF(dayIndex, dailyQuery.High);
+                    }
+                    else
+                    {
+                        secondPoint = new PointF(dayIndex, dailyQuery.High);
+                        gp.AddLine(firstPoint, secondPoint);
+                    }
+                    dayIndex += 1;
+                }
+            }
+            g.DrawPath(bluePen, gp);
         }
 
         private void DrawMajorGrid(Graphics g)
         {
-            g.DrawLine(blackPen, this.Width / 6, this.Height / 6, this.Width - 50, this.Height - 50);
-            //throw new NotImplementedException();
         }
 
         private void DrawMinorGrid(Graphics g)
         {
-            //throw new NotImplementedException();
         }
         private void DrawGraphMovAvg3(Graphics g)
         {
-            //throw new NotImplementedException();
+            using (GraphicsPath gp = new GraphicsPath())
+            {
+                PointF firstPoint = new PointF(0, 0);
+                PointF secondPoint = new PointF(0, 0);
+                List<float> closePrices = new List<float>();
+                float sum = 0.0f;
+                float avgClose;
+
+                int dayIndex = 0;
+                foreach (IDailyQuery dailyQuery in Queries)
+                {
+                    if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                    {
+                        //Load the initial days to be summed before drawing.
+                        if (dayIndex <= MovAvg3Days)
+                        {
+                            closePrices.Add(dailyQuery.Close);
+                        }
+                        //When there is enough data, the calculations and drawing can begin.
+                        else
+                        {
+                            sum = closePrices.Sum();
+                            avgClose = sum / MovAvg3Days;
+                            closePrices.RemoveAt(0);
+                            closePrices.Add(dailyQuery.Close);
+
+                            if (dayIndex % 2 == 0)
+                            {
+                                firstPoint = new PointF(dayIndex, avgClose);
+                            }
+                            else
+                            {
+                                secondPoint = new PointF(dayIndex, avgClose);
+                                gp.AddLine(firstPoint, secondPoint);
+                            }
+                        }
+                        dayIndex++;
+                    }
+                }
+                g.DrawPath(redPen, gp);
+            }
         }
 
         private void DrawGraphMovAvg2(Graphics g)
         {
-            //throw new NotImplementedException();
+            using (GraphicsPath gp = new GraphicsPath())
+            {
+                PointF firstPoint = new PointF(0, 0);
+                PointF secondPoint = new PointF(0, 0);
+                List<float> closePrices = new List<float>();
+                float sum = 0.0f;
+                float avgClose;
+
+                int dayIndex = 0;
+                foreach (IDailyQuery dailyQuery in Queries)
+                {
+                    if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                    {
+                        //Load the initial days to be summed before drawing.
+                        if (dayIndex <= MovAvg2Days)
+                        {
+                            closePrices.Add(dailyQuery.Close);
+                        }
+                        //When there is enough data, the calculations and drawing can begin.
+                        else
+                        {
+                            sum = closePrices.Sum();
+                            avgClose = sum / MovAvg2Days;
+                            closePrices.RemoveAt(0);
+                            closePrices.Add(dailyQuery.Close);
+
+                            if (dayIndex % 2 == 0)
+                            {
+                                firstPoint = new PointF(dayIndex, avgClose);
+                            }
+                            else
+                            {
+                                secondPoint = new PointF(dayIndex, avgClose);
+                                gp.AddLine(firstPoint, secondPoint);
+                            }
+                        }
+                        dayIndex++;
+                    }
+                }
+                g.DrawPath(redPen, gp);
+            }
         }
 
         private void DrawGraphMovAvg1(Graphics g)
         {
-            //throw new NotImplementedException();
+            using (GraphicsPath gp = new GraphicsPath())
+            {
+                PointF firstPoint = new PointF(0, 0);
+                PointF secondPoint = new PointF(0, 0);
+                List<float> closePrices = new List<float>();
+                float sum = 0.0f;
+                float avgClose;
+
+                int dayIndex = 0;
+                foreach (IDailyQuery dailyQuery in Queries)
+                {
+                    if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                    {
+                        //Load the initial days to be summed before drawing.
+                        if (dayIndex <= MovAvg1Days)
+                        {
+                            closePrices.Add(dailyQuery.Close);
+                        }
+                        //When there is enough data, the calculations and drawing can begin.
+                        else
+                        {
+                            sum = closePrices.Sum();
+                            avgClose = sum / MovAvg1Days;
+                            closePrices.RemoveAt(0);
+                            closePrices.Add(dailyQuery.Close);
+
+                            if (dayIndex % 2 == 0)
+                            {
+                                firstPoint = new PointF(dayIndex, avgClose);
+                            }
+                            else
+                            {
+                                secondPoint = new PointF(dayIndex, avgClose);
+                                gp.AddLine(firstPoint, secondPoint);
+                            }
+                        }
+                        dayIndex++;
+                    }
+                }
+                g.DrawPath(redPen, gp);
+            }
         }
 
         private void GraphForm_ResizeEnd(object sender, EventArgs e)

@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\GraphTransform.cs" />
     <Compile Include="Interfaces\IControlsForm.cs" />
     <Compile Include="Interfaces\IDailyQuery.cs" />
     <Compile Include="Interfaces\IDataPlugin.cs" />
