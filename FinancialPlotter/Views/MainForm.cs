@@ -18,11 +18,6 @@ namespace FinancialPlotter.Views
         public MainForm()
         {
             InitializeComponent();
-
-            buttonColorClose.BackColor = colorDialogCloseGraph.Color;
-            buttonColorMov1.BackColor = colorDialogMov1.Color;
-            buttonColorMov2.BackColor = colorDialogMov2.Color;
-            buttonColorMov3.BackColor = colorDialogMov3.Color;
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -119,7 +114,6 @@ namespace FinancialPlotter.Views
         {
             graph = (GraphForm)ActiveMdiChild;
             SetControlPanelState();
-            SetGraphState();
         }
 
         #region Control Panel
@@ -169,6 +163,7 @@ namespace FinancialPlotter.Views
             {
                 controlPanel.Enabled = true;
 
+                //Set the Checkboxes
                 labelEditing.Text = "Viewing: " + graph.Text;
                 checkBoxMinorGrid.Checked = graph.GraphMinorGridLines;
                 checkBoxMajorGrid.Checked = graph.GraphMajorGridLines;
@@ -181,12 +176,13 @@ namespace FinancialPlotter.Views
                 checkBoxMovAvg2.Checked = graph.GraphMovAvg2;
                 checkBoxMovAvg3.Checked = graph.GraphMovAvg3;
 
+                //Set the moving avg days.
                 if (graph.MovAvg1Days > numericUpDownGraph1.Minimum)
-                {
                     numericUpDownGraph1.Value = graph.MovAvg1Days;
+                if (graph.MovAvg2Days > numericUpDownGraph2.Minimum)
                     numericUpDownGraph2.Value = graph.MovAvg2Days;
+                if (graph.MovAvg3Days > numericUpDownGraph3.Minimum)
                     numericUpDownGraph3.Value = graph.MovAvg3Days;
-                }
 
                 //Reset dates when switching between graphs.
                 dateTimePickerEnd.MinDate = new DateTime(1755, 1, 1);
@@ -194,7 +190,7 @@ namespace FinancialPlotter.Views
                 dateTimePickerStart.MinDate = new DateTime(1755, 1, 1);
                 dateTimePickerStart.MaxDate = new DateTime(9000, 1, 1);
 
-                //Set the date limits.
+                //Now set the date limits to desired values.
                 dateTimePickerEnd.MaxDate = graph.MaxEndDate;
                 dateTimePickerEnd.MinDate = graph.MinStartDate;
                 dateTimePickerStart.MaxDate = graph.MaxEndDate;
@@ -203,65 +199,81 @@ namespace FinancialPlotter.Views
                 //Set the starting dates to the max range.
                 dateTimePickerEnd.Value = graph.EndDate;
                 dateTimePickerStart.Value = graph.StartDate;
+
+                //Set the colors of the buttons
+                buttonColorClose.BackColor = graph.ColorGraphClose;
+                buttonColorCandleDown.BackColor = graph.ColorGraphCandleDown;
+                buttonColorCandleUp.BackColor = graph.ColorGraphCandleUp;
+                buttonColorMov1.BackColor = graph.ColorGraphMov1;
+                buttonColorMov2.BackColor = graph.ColorGraphMov2;
+                buttonColorMov3.BackColor = graph.ColorGraphMov3;
+                buttonColorOpen.BackColor = graph.ColorGraphOpen;
+                buttonColorHigh.BackColor = graph.ColorGraphHigh;
+                buttonColorLow.BackColor = graph.ColorGraphLow;
+
             }
-        }
-
-        private void SetGraphState()
-        {
-            if (graph == null) return;
-
-            graph.ColorGraphClose = colorDialogCloseGraph.Color;
-            graph.ColorGraphMov1 = colorDialogMov1.Color;
-            graph.ColorGraphMov2 = colorDialogMov2.Color;
-            graph.ColorGraphMov3 = colorDialogMov3.Color;
-            graph.ColorGraphOpen = Color.Black;
-            graph.ColorGraphHigh = Color.Black;
-            graph.ColorGraphLow = Color.Black;
-            graph.ColorGraphCandleDown = Color.Pink;
-            graph.ColorGraphCandleUp = Color.Turquoise;
         }
         #endregion
 
+        /// <summary>
+        /// When a color button is pressed, it will call this function to set the appropriate colors.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonColorPicker_Click(object sender, EventArgs e)
         {
             Button colorButton = (Button)sender;
 
-            if (colorButton.Equals(buttonColorClose))
+            //Set the initial value of the color dialog to the color of the button that was clicked.
+            colorDialog1.Color = colorButton.BackColor;
+
+            DialogResult result = colorDialog1.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                DialogResult result = colorDialogCloseGraph.ShowDialog();
-                if (result == DialogResult.OK)
+
+                //Set the graph color depending on the button.
+                if (colorButton.Equals(buttonColorClose))
                 {
-                    graph.ColorGraphClose = colorDialogCloseGraph.Color;
-                    buttonColorClose.BackColor = colorDialogCloseGraph.Color;
+                    graph.ColorGraphClose = colorDialog1.Color;
                 }
-            }
-            else if (colorButton.Equals(buttonColorMov1))
-            {
-                DialogResult result = colorDialogMov1.ShowDialog();
-                if (result == DialogResult.OK)
+                else if (colorButton.Equals(buttonColorMov1))
                 {
-                    graph.ColorGraphMov1 = colorDialogMov1.Color;
-                    buttonColorMov1.BackColor = colorDialogMov1.Color;
+                    graph.ColorGraphMov1 = colorDialog1.Color;
                 }
-            }
-            else if (colorButton.Equals(buttonColorMov2))
-            {
-                DialogResult result = colorDialogMov2.ShowDialog();
-                if (result == DialogResult.OK)
+                else if (colorButton.Equals(buttonColorMov2))
                 {
-                    graph.ColorGraphMov1 = colorDialogMov1.Color;
-                    buttonColorMov1.BackColor = colorDialogMov1.Color;
+                    graph.ColorGraphMov2 = colorDialog1.Color;
                 }
-            }
-            else if (colorButton.Equals(buttonColorMov3))
-            {
-                DialogResult result = colorDialogMov3.ShowDialog();
-                if (result == DialogResult.OK)
+                else if (colorButton.Equals(buttonColorMov3))
                 {
-                    graph.ColorGraphMov1 = colorDialogMov1.Color;
-                    buttonColorMov1.BackColor = colorDialogMov1.Color;
+                    graph.ColorGraphMov3 = colorDialog1.Color;
                 }
+                else if (colorButton.Equals(buttonColorCandleUp))
+                {
+                    graph.ColorGraphCandleUp = colorDialog1.Color;
+                }
+                else if (colorButton.Equals(buttonColorCandleDown))
+                {
+                    graph.ColorGraphCandleDown = colorDialog1.Color;
+                }
+                else if (colorButton.Equals(buttonColorLow))
+                {
+                    graph.ColorGraphLow = colorDialog1.Color;
+                }
+                else if (colorButton.Equals(buttonColorHigh))
+                {
+                    graph.ColorGraphHigh = colorDialog1.Color;
+                }
+                else if (colorButton.Equals(buttonColorOpen))
+                {
+                    graph.ColorGraphOpen = colorDialog1.Color;
+                }
+
+                //Set the new color of the button that was clicked.
+                colorButton.BackColor = colorDialog1.Color;
             }
         }
+
+
     }
 }

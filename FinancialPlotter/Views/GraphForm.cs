@@ -29,6 +29,7 @@ namespace FinancialPlotter.Views
             }
 
             InitializeComponent();
+            SetupInitialState();
         }
 
         /// <summary>
@@ -93,7 +94,6 @@ namespace FinancialPlotter.Views
         private float bottomMargin = 0.0f;
 
         private Pen graphPen = new Pen(Color.Black, 0.2f);
-        //private Pen blackPen = new Pen(Color.Black, 0.2f);
         private GraphTransform graphTransform;
 
         /// <summary>
@@ -115,6 +115,26 @@ namespace FinancialPlotter.Views
             float x2 = getDaysCountInRange();
             float y2 = MinValue;
             graphTransform = new GraphTransform(u1, v1, u2, v2, x1, y1, x2, y2, leftMargin, bottomMargin);
+        }
+
+        /// <summary>
+        /// Sets up the default state of the gra[h.
+        /// </summary>
+        private void SetupInitialState()
+        {
+            ColorGraphClose = Color.Green;
+            ColorGraphMov1 = Color.Magenta;
+            ColorGraphMov2 = Color.Maroon;
+            ColorGraphMov3 = Color.MistyRose;
+            ColorGraphOpen = Color.DarkOrange;
+            ColorGraphHigh = Color.LightBlue;
+            ColorGraphLow = Color.DarkBlue;
+            ColorGraphCandleDown = Color.DeepPink;
+            ColorGraphCandleUp = Color.Turquoise;
+
+            MovAvg1Days = 10;
+            MovAvg2Days = 50;
+            MovAvg3Days = 100;
         }
 
         private float getDaysCountInRange()

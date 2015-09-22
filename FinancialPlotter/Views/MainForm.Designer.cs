@@ -88,6 +88,9 @@
             this.checkBoxMinorGrid = new System.Windows.Forms.CheckBox();
             this.checkBoxMajorGrid = new System.Windows.Forms.CheckBox();
             this.groupBoxMovingAvg = new System.Windows.Forms.GroupBox();
+            this.buttonColorMov3 = new System.Windows.Forms.Button();
+            this.buttonColorMov2 = new System.Windows.Forms.Button();
+            this.buttonColorMov1 = new System.Windows.Forms.Button();
             this.numericUpDownGraph3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownGraph2 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -97,6 +100,12 @@
             this.checkBoxMovAvg1 = new System.Windows.Forms.CheckBox();
             this.buttonApply = new System.Windows.Forms.Button();
             this.groupBoxDisplayType = new System.Windows.Forms.GroupBox();
+            this.buttonColorOpen = new System.Windows.Forms.Button();
+            this.buttonColorHigh = new System.Windows.Forms.Button();
+            this.buttonColorLow = new System.Windows.Forms.Button();
+            this.buttonColorCandleUp = new System.Windows.Forms.Button();
+            this.buttonColorCandleDown = new System.Windows.Forms.Button();
+            this.buttonColorClose = new System.Windows.Forms.Button();
             this.checkBoxClose = new System.Windows.Forms.CheckBox();
             this.checkBoxOpen = new System.Windows.Forms.CheckBox();
             this.checkBoxLow = new System.Windows.Forms.CheckBox();
@@ -107,15 +116,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonColorClose = new System.Windows.Forms.Button();
-            this.colorDialogCloseGraph = new System.Windows.Forms.ColorDialog();
-            this.colorDialogMov1 = new System.Windows.Forms.ColorDialog();
-            this.colorDialogMov2 = new System.Windows.Forms.ColorDialog();
-            this.colorDialogMov3 = new System.Windows.Forms.ColorDialog();
-            this.button1 = new System.Windows.Forms.Button();
-            this.buttonColorMov1 = new System.Windows.Forms.Button();
-            this.buttonColorMov2 = new System.Windows.Forms.Button();
-            this.buttonColorMov3 = new System.Windows.Forms.Button();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -570,6 +571,7 @@
             // 
             // controlPanel
             // 
+            this.controlPanel.AutoScroll = true;
             this.controlPanel.Controls.Add(this.labelEditing);
             this.controlPanel.Controls.Add(this.groupBoxGrid);
             this.controlPanel.Controls.Add(this.groupBoxMovingAvg);
@@ -578,16 +580,16 @@
             this.controlPanel.Controls.Add(this.groupBoxTimerPeriod);
             this.controlPanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.controlPanel.Enabled = false;
-            this.controlPanel.Location = new System.Drawing.Point(1077, 49);
+            this.controlPanel.Location = new System.Drawing.Point(1057, 49);
             this.controlPanel.Name = "controlPanel";
-            this.controlPanel.Size = new System.Drawing.Size(187, 610);
+            this.controlPanel.Size = new System.Drawing.Size(207, 610);
             this.controlPanel.TabIndex = 4;
             // 
             // labelEditing
             // 
             this.labelEditing.AutoSize = true;
             this.labelEditing.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelEditing.Location = new System.Drawing.Point(12, 11);
+            this.labelEditing.Location = new System.Drawing.Point(20, 11);
             this.labelEditing.Name = "labelEditing";
             this.labelEditing.Size = new System.Drawing.Size(73, 17);
             this.labelEditing.TabIndex = 13;
@@ -597,7 +599,7 @@
             // 
             this.groupBoxGrid.Controls.Add(this.checkBoxMinorGrid);
             this.groupBoxGrid.Controls.Add(this.checkBoxMajorGrid);
-            this.groupBoxGrid.Location = new System.Drawing.Point(11, 41);
+            this.groupBoxGrid.Location = new System.Drawing.Point(19, 41);
             this.groupBoxGrid.Name = "groupBoxGrid";
             this.groupBoxGrid.Size = new System.Drawing.Size(160, 71);
             this.groupBoxGrid.TabIndex = 12;
@@ -636,12 +638,39 @@
             this.groupBoxMovingAvg.Controls.Add(this.checkBoxMovAvg3);
             this.groupBoxMovingAvg.Controls.Add(this.checkBoxMovAvg2);
             this.groupBoxMovingAvg.Controls.Add(this.checkBoxMovAvg1);
-            this.groupBoxMovingAvg.Location = new System.Drawing.Point(11, 385);
+            this.groupBoxMovingAvg.Location = new System.Drawing.Point(19, 452);
             this.groupBoxMovingAvg.Name = "groupBoxMovingAvg";
             this.groupBoxMovingAvg.Size = new System.Drawing.Size(160, 118);
             this.groupBoxMovingAvg.TabIndex = 11;
             this.groupBoxMovingAvg.TabStop = false;
             this.groupBoxMovingAvg.Text = "Moving Average Graphs";
+            // 
+            // buttonColorMov3
+            // 
+            this.buttonColorMov3.Location = new System.Drawing.Point(123, 88);
+            this.buttonColorMov3.Name = "buttonColorMov3";
+            this.buttonColorMov3.Size = new System.Drawing.Size(28, 13);
+            this.buttonColorMov3.TabIndex = 9;
+            this.buttonColorMov3.UseVisualStyleBackColor = true;
+            this.buttonColorMov3.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorMov2
+            // 
+            this.buttonColorMov2.Location = new System.Drawing.Point(123, 64);
+            this.buttonColorMov2.Name = "buttonColorMov2";
+            this.buttonColorMov2.Size = new System.Drawing.Size(28, 13);
+            this.buttonColorMov2.TabIndex = 8;
+            this.buttonColorMov2.UseVisualStyleBackColor = true;
+            this.buttonColorMov2.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorMov1
+            // 
+            this.buttonColorMov1.Location = new System.Drawing.Point(123, 39);
+            this.buttonColorMov1.Name = "buttonColorMov1";
+            this.buttonColorMov1.Size = new System.Drawing.Size(28, 13);
+            this.buttonColorMov1.TabIndex = 7;
+            this.buttonColorMov1.UseVisualStyleBackColor = true;
+            this.buttonColorMov1.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
             // numericUpDownGraph3
             // 
@@ -735,7 +764,7 @@
             // 
             // buttonApply
             // 
-            this.buttonApply.Location = new System.Drawing.Point(11, 509);
+            this.buttonApply.Location = new System.Drawing.Point(19, 576);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(160, 23);
             this.buttonApply.TabIndex = 10;
@@ -745,19 +774,77 @@
             // 
             // groupBoxDisplayType
             // 
-            this.groupBoxDisplayType.Controls.Add(this.button1);
+            this.groupBoxDisplayType.Controls.Add(this.buttonColorOpen);
+            this.groupBoxDisplayType.Controls.Add(this.buttonColorHigh);
+            this.groupBoxDisplayType.Controls.Add(this.buttonColorLow);
+            this.groupBoxDisplayType.Controls.Add(this.buttonColorCandleUp);
+            this.groupBoxDisplayType.Controls.Add(this.buttonColorCandleDown);
             this.groupBoxDisplayType.Controls.Add(this.buttonColorClose);
             this.groupBoxDisplayType.Controls.Add(this.checkBoxClose);
             this.groupBoxDisplayType.Controls.Add(this.checkBoxOpen);
             this.groupBoxDisplayType.Controls.Add(this.checkBoxLow);
             this.groupBoxDisplayType.Controls.Add(this.checkBoxHigh);
             this.groupBoxDisplayType.Controls.Add(this.checkBoxCandleSticks);
-            this.groupBoxDisplayType.Location = new System.Drawing.Point(11, 238);
+            this.groupBoxDisplayType.Location = new System.Drawing.Point(19, 238);
             this.groupBoxDisplayType.Name = "groupBoxDisplayType";
-            this.groupBoxDisplayType.Size = new System.Drawing.Size(160, 141);
+            this.groupBoxDisplayType.Size = new System.Drawing.Size(160, 144);
             this.groupBoxDisplayType.TabIndex = 9;
             this.groupBoxDisplayType.TabStop = false;
             this.groupBoxDisplayType.Text = "Graph Type";
+            // 
+            // buttonColorOpen
+            // 
+            this.buttonColorOpen.Location = new System.Drawing.Point(92, 112);
+            this.buttonColorOpen.Name = "buttonColorOpen";
+            this.buttonColorOpen.Size = new System.Drawing.Size(28, 15);
+            this.buttonColorOpen.TabIndex = 11;
+            this.buttonColorOpen.UseVisualStyleBackColor = true;
+            this.buttonColorOpen.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorHigh
+            // 
+            this.buttonColorHigh.Location = new System.Drawing.Point(92, 89);
+            this.buttonColorHigh.Name = "buttonColorHigh";
+            this.buttonColorHigh.Size = new System.Drawing.Size(28, 15);
+            this.buttonColorHigh.TabIndex = 10;
+            this.buttonColorHigh.UseVisualStyleBackColor = true;
+            this.buttonColorHigh.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorLow
+            // 
+            this.buttonColorLow.Location = new System.Drawing.Point(92, 43);
+            this.buttonColorLow.Name = "buttonColorLow";
+            this.buttonColorLow.Size = new System.Drawing.Size(28, 15);
+            this.buttonColorLow.TabIndex = 9;
+            this.buttonColorLow.UseVisualStyleBackColor = true;
+            this.buttonColorLow.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorCandleUp
+            // 
+            this.buttonColorCandleUp.Location = new System.Drawing.Point(92, 19);
+            this.buttonColorCandleUp.Name = "buttonColorCandleUp";
+            this.buttonColorCandleUp.Size = new System.Drawing.Size(28, 15);
+            this.buttonColorCandleUp.TabIndex = 8;
+            this.buttonColorCandleUp.UseVisualStyleBackColor = true;
+            this.buttonColorCandleUp.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorCandleDown
+            // 
+            this.buttonColorCandleDown.Location = new System.Drawing.Point(126, 19);
+            this.buttonColorCandleDown.Name = "buttonColorCandleDown";
+            this.buttonColorCandleDown.Size = new System.Drawing.Size(28, 15);
+            this.buttonColorCandleDown.TabIndex = 7;
+            this.buttonColorCandleDown.UseVisualStyleBackColor = true;
+            this.buttonColorCandleDown.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // buttonColorClose
+            // 
+            this.buttonColorClose.Location = new System.Drawing.Point(92, 66);
+            this.buttonColorClose.Name = "buttonColorClose";
+            this.buttonColorClose.Size = new System.Drawing.Size(28, 15);
+            this.buttonColorClose.TabIndex = 5;
+            this.buttonColorClose.UseVisualStyleBackColor = true;
+            this.buttonColorClose.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
             // checkBoxClose
             // 
@@ -815,7 +902,7 @@
             this.groupBoxTimerPeriod.Controls.Add(this.label2);
             this.groupBoxTimerPeriod.Controls.Add(this.dateTimePickerStart);
             this.groupBoxTimerPeriod.Controls.Add(this.label1);
-            this.groupBoxTimerPeriod.Location = new System.Drawing.Point(11, 120);
+            this.groupBoxTimerPeriod.Location = new System.Drawing.Point(19, 120);
             this.groupBoxTimerPeriod.Name = "groupBoxTimerPeriod";
             this.groupBoxTimerPeriod.Size = new System.Drawing.Size(160, 112);
             this.groupBoxTimerPeriod.TabIndex = 8;
@@ -855,67 +942,6 @@
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Start Date:";
-            // 
-            // buttonColorClose
-            // 
-            this.buttonColorClose.Location = new System.Drawing.Point(121, 68);
-            this.buttonColorClose.Name = "buttonColorClose";
-            this.buttonColorClose.Size = new System.Drawing.Size(28, 15);
-            this.buttonColorClose.TabIndex = 5;
-            this.buttonColorClose.UseVisualStyleBackColor = true;
-            this.buttonColorClose.Click += new System.EventHandler(this.buttonColorPicker_Click);
-            // 
-            // colorDialogCloseGraph
-            // 
-            this.colorDialogCloseGraph.Color = System.Drawing.Color.Green;
-            // 
-            // colorDialogMov1
-            // 
-            this.colorDialogMov1.Color = System.Drawing.Color.LightCoral;
-            // 
-            // colorDialogMov2
-            // 
-            this.colorDialogMov2.Color = System.Drawing.Color.OrangeRed;
-            // 
-            // colorDialogMov3
-            // 
-            this.colorDialogMov3.Color = System.Drawing.Color.DarkOrange;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(121, 44);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(28, 13);
-            this.button1.TabIndex = 6;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.buttonColorPicker_Click);
-            // 
-            // buttonColorMov1
-            // 
-            this.buttonColorMov1.Location = new System.Drawing.Point(123, 39);
-            this.buttonColorMov1.Name = "buttonColorMov1";
-            this.buttonColorMov1.Size = new System.Drawing.Size(28, 13);
-            this.buttonColorMov1.TabIndex = 7;
-            this.buttonColorMov1.UseVisualStyleBackColor = true;
-            this.buttonColorMov1.Click += new System.EventHandler(this.buttonColorPicker_Click);
-            // 
-            // buttonColorMov2
-            // 
-            this.buttonColorMov2.Location = new System.Drawing.Point(123, 64);
-            this.buttonColorMov2.Name = "buttonColorMov2";
-            this.buttonColorMov2.Size = new System.Drawing.Size(28, 13);
-            this.buttonColorMov2.TabIndex = 8;
-            this.buttonColorMov2.UseVisualStyleBackColor = true;
-            this.buttonColorMov2.Click += new System.EventHandler(this.buttonColorPicker_Click);
-            // 
-            // buttonColorMov3
-            // 
-            this.buttonColorMov3.Location = new System.Drawing.Point(123, 86);
-            this.buttonColorMov3.Name = "buttonColorMov3";
-            this.buttonColorMov3.Size = new System.Drawing.Size(28, 13);
-            this.buttonColorMov3.TabIndex = 9;
-            this.buttonColorMov3.UseVisualStyleBackColor = true;
-            this.buttonColorMov3.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
             // MainForm
             // 
@@ -1036,14 +1062,15 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerStart;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonColorClose;
-        private System.Windows.Forms.ColorDialog colorDialogCloseGraph;
-        private System.Windows.Forms.ColorDialog colorDialogMov1;
-        private System.Windows.Forms.ColorDialog colorDialogMov2;
-        private System.Windows.Forms.ColorDialog colorDialogMov3;
         private System.Windows.Forms.Button buttonColorMov3;
         private System.Windows.Forms.Button buttonColorMov2;
         private System.Windows.Forms.Button buttonColorMov1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonColorOpen;
+        private System.Windows.Forms.Button buttonColorHigh;
+        private System.Windows.Forms.Button buttonColorLow;
+        private System.Windows.Forms.Button buttonColorCandleUp;
+        private System.Windows.Forms.Button buttonColorCandleDown;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }
 
