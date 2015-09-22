@@ -40,10 +40,12 @@ namespace FinancialPlotter.Views
         private void GraphForm_Paint(object sender, PaintEventArgs e)
         {
             SetupGraphingTransform();
+            Graphics g2 = this.CreateGraphics();
 
             if (this.WindowState != FormWindowState.Minimized)
             {
                 e.Graphics.Transform = graphTransform.matrix;
+                g2.Transform = graphTransform.matrix;
             }
 
             if (GraphMajorGridLines) DrawMajorGrid(e.Graphics);
@@ -53,9 +55,17 @@ namespace FinancialPlotter.Views
             if (GraphClose) DrawGraphClose(e.Graphics);
             if (GraphOpen) DrawGraphOpen(e.Graphics);
             if (GraphCandleSticks) DrawGraphCandleSticks(e.Graphics);
-            if (GraphMovAvg1) DrawGraphMovAvg1(e.Graphics);
-            if (GraphMovAvg2) DrawGraphMovAvg2(e.Graphics);
-            if (GraphMovAvg3) DrawGraphMovAvg3(e.Graphics);
+
+            //if (GraphCandleSticks)
+            //{
+            //    Task.Factory.StartNew(() => {
+            //        DrawGraphCandleSticks(g2);
+            //    });
+            //}
+
+            if (GraphMovAvg1) DrawGraphMovAvg(e.Graphics, 1);
+            if (GraphMovAvg2) DrawGraphMovAvg(e.Graphics, 2);
+            if (GraphMovAvg3) DrawGraphMovAvg(e.Graphics, 3);
         }
 
         #region Properties **********************
@@ -216,8 +226,10 @@ namespace FinancialPlotter.Views
             }
         }
 
+        #region Drawing The Graphs
         private void DrawGraphCandleSticks(Graphics g)
         {
+            //Pen graphPen = new Pen(Color.Black);
             graphPen.Color = Color.Black;
             SolidBrush brushUp = new SolidBrush(ColorGraphCandleUp);
             SolidBrush brushDown = new SolidBrush(ColorGraphCandleDown);
@@ -356,7 +368,7 @@ namespace FinancialPlotter.Views
         {
         }
 
-        private void DrawGraphMovAvg3(Graphics g)
+        private void DrawGraphMovAvg(Graphics g, int graphID)
         {
             using (GraphicsPath gp = new GraphicsPath())
             {
@@ -366,13 +378,32 @@ namespace FinancialPlotter.Views
                 float sum = 0.0f;
                 float avgClose;
 
+                int days = 0;
+                switch (graphID)
+                {
+                    case 1:
+                        days = MovAvg1Days;
+                        graphPen.Color = ColorGraphMov1;
+                        break;
+                    case 2:
+                        days = MovAvg2Days;
+                        graphPen.Color = ColorGraphMov2;
+                        break;
+                    case 3:
+                        days = MovAvg3Days;
+                        graphPen.Color = ColorGraphMov3;
+                        break;
+                    default:
+                        break;
+                }
+
                 int dayIndex = 0;
                 foreach (IDailyQuery dailyQuery in Queries)
                 {
                     if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
                     {
                         //Load the initial days to be summed before drawing.
-                        if (dayIndex <= MovAvg3Days)
+                        if (dayIndex <= days)
                         {
                             closePrices.Add(dailyQuery.Close);
                         }
@@ -380,7 +411,7 @@ namespace FinancialPlotter.Views
                         else
                         {
                             sum = closePrices.Sum();
-                            avgClose = sum / MovAvg3Days;
+                            avgClose = sum / days;
                             closePrices.RemoveAt(0);
                             closePrices.Add(dailyQuery.Close);
 
@@ -397,102 +428,10 @@ namespace FinancialPlotter.Views
                         dayIndex++;
                     }
                 }
-                graphPen.Color = ColorGraphMov3;
                 g.DrawPath(graphPen, gp);
             }
         }
-
-        private void DrawGraphMovAvg2(Graphics g)
-        {
-            using (GraphicsPath gp = new GraphicsPath())
-            {
-                PointF firstPoint = new PointF(0, 0);
-                PointF secondPoint = new PointF(0, 0);
-                List<float> closePrices = new List<float>();
-                float sum = 0.0f;
-                float avgClose;
-
-                int dayIndex = 0;
-                foreach (IDailyQuery dailyQuery in Queries)
-                {
-                    if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
-                    {
-                        //Load the initial days to be summed before drawing.
-                        if (dayIndex <= MovAvg2Days)
-                        {
-                            closePrices.Add(dailyQuery.Close);
-                        }
-                        //When there is enough data, the calculations and drawing can begin.
-                        else
-                        {
-                            sum = closePrices.Sum();
-                            avgClose = sum / MovAvg2Days;
-                            closePrices.RemoveAt(0);
-                            closePrices.Add(dailyQuery.Close);
-
-                            if (dayIndex % 2 == 0)
-                            {
-                                firstPoint = new PointF(dayIndex, avgClose);
-                            }
-                            else
-                            {
-                                secondPoint = new PointF(dayIndex, avgClose);
-                                gp.AddLine(firstPoint, secondPoint);
-                            }
-                        }
-                        dayIndex++;
-                    }
-                }
-                graphPen.Color = ColorGraphMov2;
-                g.DrawPath(graphPen, gp);
-            }
-        }
-
-        private void DrawGraphMovAvg1(Graphics g)
-        {
-            using (GraphicsPath gp = new GraphicsPath())
-            {
-                PointF firstPoint = new PointF(0, 0);
-                PointF secondPoint = new PointF(0, 0);
-                List<float> closePrices = new List<float>();
-                float sum = 0.0f;
-                float avgClose;
-
-                int dayIndex = 0;
-                foreach (IDailyQuery dailyQuery in Queries)
-                {
-                    if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
-                    {
-                        //Load the initial days to be summed before drawing.
-                        if (dayIndex <= MovAvg1Days)
-                        {
-                            closePrices.Add(dailyQuery.Close);
-                        }
-                        //When there is enough data, the calculations and drawing can begin.
-                        else
-                        {
-                            sum = closePrices.Sum();
-                            avgClose = sum / MovAvg1Days;
-                            closePrices.RemoveAt(0);
-                            closePrices.Add(dailyQuery.Close);
-
-                            if (dayIndex % 2 == 0)
-                            {
-                                firstPoint = new PointF(dayIndex, avgClose);
-                            }
-                            else
-                            {
-                                secondPoint = new PointF(dayIndex, avgClose);
-                                gp.AddLine(firstPoint, secondPoint);
-                            }
-                        }
-                        dayIndex++;
-                    }
-                }
-                graphPen.Color = ColorGraphMov1;
-                g.DrawPath(graphPen, gp);
-            }
-        }
+        #endregion
 
         private void GraphForm_ResizeEnd(object sender, EventArgs e)
         {
