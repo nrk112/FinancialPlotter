@@ -18,11 +18,7 @@ namespace FinancialPlotter.Views
         public MainForm()
         {
             InitializeComponent();
-
-            buttonColorClose.BackColor = colorDialogCloseGraph.Color;
-            buttonColorMov1.BackColor = colorDialogMov1.Color;
-            buttonColorMov2.BackColor = colorDialogMov2.Color;
-            buttonColorMov3.BackColor = colorDialogMov3.Color;
+            SetInitialButtonColors();
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -210,58 +206,132 @@ namespace FinancialPlotter.Views
         {
             if (graph == null) return;
 
-            graph.ColorGraphClose = colorDialogCloseGraph.Color;
-            graph.ColorGraphMov1 = colorDialogMov1.Color;
-            graph.ColorGraphMov2 = colorDialogMov2.Color;
-            graph.ColorGraphMov3 = colorDialogMov3.Color;
+            graph.ColorGraphClose = buttonColorClose.BackColor;
+            graph.ColorGraphMov1 = buttonColorMov1.BackColor;
+            graph.ColorGraphMov2 = buttonColorMov2.BackColor;
+            graph.ColorGraphMov3 = buttonColorMov3.BackColor;
             graph.ColorGraphOpen = Color.Black;
             graph.ColorGraphHigh = Color.Black;
             graph.ColorGraphLow = Color.Black;
-            graph.ColorGraphCandleDown = Color.Pink;
+            graph.ColorGraphCandleDown = buttonColorCandleDown.BackColor;
             graph.ColorGraphCandleUp = Color.Turquoise;
         }
         #endregion
 
+        /// <summary>
+        /// When a color button is pressed, it will call this function to set the appropriate colors.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonColorPicker_Click(object sender, EventArgs e)
         {
             Button colorButton = (Button)sender;
 
-            if (colorButton.Equals(buttonColorClose))
+            //Set the initial value of the color dialog to the color of the button that was clicked.
+            colorDialog1.Color = colorButton.BackColor;
+
+            DialogResult result = colorDialog1.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                DialogResult result = colorDialogCloseGraph.ShowDialog();
-                if (result == DialogResult.OK)
+
+                //Set the graph color depending on the button.
+                if (colorButton.Equals(buttonColorClose))
                 {
-                    graph.ColorGraphClose = colorDialogCloseGraph.Color;
-                    buttonColorClose.BackColor = colorDialogCloseGraph.Color;
+                    graph.ColorGraphClose = colorDialog1.Color;
                 }
-            }
-            else if (colorButton.Equals(buttonColorMov1))
-            {
-                DialogResult result = colorDialogMov1.ShowDialog();
-                if (result == DialogResult.OK)
+                else if (colorButton.Equals(buttonColorMov1))
                 {
-                    graph.ColorGraphMov1 = colorDialogMov1.Color;
-                    buttonColorMov1.BackColor = colorDialogMov1.Color;
+                    graph.ColorGraphMov1 = colorDialog1.Color;
                 }
-            }
-            else if (colorButton.Equals(buttonColorMov2))
-            {
-                DialogResult result = colorDialogMov2.ShowDialog();
-                if (result == DialogResult.OK)
+                else if (colorButton.Equals(buttonColorMov2))
                 {
-                    graph.ColorGraphMov1 = colorDialogMov1.Color;
-                    buttonColorMov1.BackColor = colorDialogMov1.Color;
+                    graph.ColorGraphMov2 = colorDialog1.Color;
                 }
-            }
-            else if (colorButton.Equals(buttonColorMov3))
-            {
-                DialogResult result = colorDialogMov3.ShowDialog();
-                if (result == DialogResult.OK)
+                else if (colorButton.Equals(buttonColorMov3))
                 {
-                    graph.ColorGraphMov1 = colorDialogMov1.Color;
-                    buttonColorMov1.BackColor = colorDialogMov1.Color;
+                    graph.ColorGraphMov3 = colorDialog1.Color;
                 }
+                else if (colorButton.Equals(buttonColorCandleUp))
+                {
+                    graph.ColorGraphCandleUp = colorDialog1.Color;
+                }
+                else if (colorButton.Equals(buttonColorCandleDown))
+                {
+                    graph.ColorGraphCandleDown = colorDialog1.Color;
+                }
+
+                //Set the new color of the button that was clicked.
+                colorButton.BackColor = colorDialog1.Color;
             }
+
+
+
+
+
+
+
+            //if (colorButton.Equals(buttonColorClose))
+            //{
+            //    DialogResult result = colorDialogCloseGraph.ShowDialog();
+            //    if (result == DialogResult.OK)
+            //    {
+            //        graph.ColorGraphClose = colorDialog1.Color;
+            //        buttonColorClose.BackColor = colorDialog1.Color;
+
+            //        //graph.ColorGraphClose = colorDialogCloseGraph.Color;
+            //        //buttonColorClose.BackColor = colorDialogCloseGraph.Color;
+            //    }
+            //}
+            //else if (colorButton.Equals(buttonColorMov1))
+            //{
+            //    DialogResult result = colorDialogMov1.ShowDialog();
+            //    if (result == DialogResult.OK)
+            //    {
+            //        //graph.ColorGraphMov1 = colorDialogMov1.Color;
+            //        //buttonColorMov1.BackColor = colorDialogMov1.Color;
+            //    }
+            //}
+            //else if (colorButton.Equals(buttonColorMov2))
+            //{
+            //    DialogResult result = colorDialogMov2.ShowDialog();
+            //    if (result == DialogResult.OK)
+            //    {
+            //        //graph.ColorGraphMov1 = colorDialogMov1.Color;
+            //        //buttonColorMov1.BackColor = colorDialogMov1.Color;
+            //    }
+            //}
+            //else if (colorButton.Equals(buttonColorMov3))
+            //{
+            //    DialogResult result = colorDialogMov3.ShowDialog();
+            //    if (result == DialogResult.OK)
+            //    {
+            //        //graph.ColorGraphMov1 = colorDialogMov1.Color;
+            //        //buttonColorMov1.BackColor = colorDialogMov1.Color;
+            //    }
+            //}
+        }
+
+        /// <summary>
+        /// Sets up the background color of the color chooser buttons when the interface loads.
+        /// </summary>
+        private void SetInitialButtonColors()
+        {
+            buttonColorClose.BackColor = Color.DarkOrange;
+            buttonColorMov1.BackColor = Color.Blue;
+            buttonColorMov2.BackColor = Color.Magenta;
+            buttonColorMov3.BackColor = Color.DarkMagenta;
+            buttonColorCandleUp.BackColor = Color.Green;
+            buttonColorCandleDown.BackColor = Color.Red;
+
+            //buttonColorClose.BackColor = colorDialogCloseGraph.Color;
+            //buttonColorMov1.BackColor = colorDialogMov1.Color;
+            //buttonColorMov2.BackColor = colorDialogMov2.Color;
+            //buttonColorMov3.BackColor = colorDialogMov3.Color;
+            //buttonColorCandleUp.BackColor = colorDialogCandleUp.Color;
+            //buttonColorCandleDown.BackColor = colorDialogCandleDown.Color;
         }
     }
 }
+
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//Add default color to graph form instead of here. Then add the code to get the state of color when form activated.
