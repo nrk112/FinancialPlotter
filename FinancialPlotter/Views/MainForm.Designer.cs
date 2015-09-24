@@ -88,6 +88,8 @@
             this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.buttonColorStickFigures = new System.Windows.Forms.Button();
+            this.checkBoxStickFigures = new System.Windows.Forms.CheckBox();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -133,7 +135,7 @@
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
             // 
@@ -200,7 +202,7 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // windowsMenu
@@ -217,28 +219,28 @@
             // cascadeToolStripMenuItem
             // 
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.cascadeToolStripMenuItem.Text = "&Cascade";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.CascadeToolStripMenuItem_Click);
             // 
             // tileVerticalToolStripMenuItem
             // 
             this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.tileVerticalToolStripMenuItem.Text = "Tile &Vertical";
             this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.TileVerticalToolStripMenuItem_Click);
             // 
             // tileHorizontalToolStripMenuItem
             // 
             this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.tileHorizontalToolStripMenuItem.Text = "Tile &Horizontal";
             this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.TileHorizontalToolStripMenuItem_Click);
             // 
             // closeAllToolStripMenuItem
             // 
             this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.closeAllToolStripMenuItem.Text = "C&lose All";
             this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.CloseAllToolStripMenuItem_Click);
             // 
@@ -327,16 +329,16 @@
             this.groupBoxGrid.Size = new System.Drawing.Size(160, 71);
             this.groupBoxGrid.TabIndex = 12;
             this.groupBoxGrid.TabStop = false;
-            this.groupBoxGrid.Text = "Grid Lines";
+            this.groupBoxGrid.Text = "Graph Properties";
             // 
             // checkBoxMinorGrid
             // 
             this.checkBoxMinorGrid.AutoSize = true;
             this.checkBoxMinorGrid.Location = new System.Drawing.Point(7, 43);
             this.checkBoxMinorGrid.Name = "checkBoxMinorGrid";
-            this.checkBoxMinorGrid.Size = new System.Drawing.Size(110, 17);
+            this.checkBoxMinorGrid.Size = new System.Drawing.Size(75, 17);
             this.checkBoxMinorGrid.TabIndex = 1;
-            this.checkBoxMinorGrid.Text = "Show Minor Lines";
+            this.checkBoxMinorGrid.Text = "Show Grid";
             this.checkBoxMinorGrid.UseVisualStyleBackColor = true;
             // 
             // checkBoxMajorGrid
@@ -344,9 +346,9 @@
             this.checkBoxMajorGrid.AutoSize = true;
             this.checkBoxMajorGrid.Location = new System.Drawing.Point(7, 20);
             this.checkBoxMajorGrid.Name = "checkBoxMajorGrid";
-            this.checkBoxMajorGrid.Size = new System.Drawing.Size(110, 17);
+            this.checkBoxMajorGrid.Size = new System.Drawing.Size(79, 17);
             this.checkBoxMajorGrid.TabIndex = 0;
-            this.checkBoxMajorGrid.Text = "Show Major Lines";
+            this.checkBoxMajorGrid.Text = "Show Axes";
             this.checkBoxMajorGrid.UseVisualStyleBackColor = true;
             // 
             // groupBoxMovingAvg
@@ -361,7 +363,7 @@
             this.groupBoxMovingAvg.Controls.Add(this.checkBoxMovAvg3);
             this.groupBoxMovingAvg.Controls.Add(this.checkBoxMovAvg2);
             this.groupBoxMovingAvg.Controls.Add(this.checkBoxMovAvg1);
-            this.groupBoxMovingAvg.Location = new System.Drawing.Point(19, 452);
+            this.groupBoxMovingAvg.Location = new System.Drawing.Point(19, 409);
             this.groupBoxMovingAvg.Name = "groupBoxMovingAvg";
             this.groupBoxMovingAvg.Size = new System.Drawing.Size(160, 118);
             this.groupBoxMovingAvg.TabIndex = 11;
@@ -373,7 +375,7 @@
             this.buttonColorMov3.Location = new System.Drawing.Point(123, 88);
             this.buttonColorMov3.Name = "buttonColorMov3";
             this.buttonColorMov3.Size = new System.Drawing.Size(28, 13);
-            this.buttonColorMov3.TabIndex = 9;
+            this.buttonColorMov3.TabIndex = 25;
             this.buttonColorMov3.UseVisualStyleBackColor = true;
             this.buttonColorMov3.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
@@ -382,7 +384,7 @@
             this.buttonColorMov2.Location = new System.Drawing.Point(123, 64);
             this.buttonColorMov2.Name = "buttonColorMov2";
             this.buttonColorMov2.Size = new System.Drawing.Size(28, 13);
-            this.buttonColorMov2.TabIndex = 8;
+            this.buttonColorMov2.TabIndex = 22;
             this.buttonColorMov2.UseVisualStyleBackColor = true;
             this.buttonColorMov2.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
@@ -391,7 +393,7 @@
             this.buttonColorMov1.Location = new System.Drawing.Point(123, 39);
             this.buttonColorMov1.Name = "buttonColorMov1";
             this.buttonColorMov1.Size = new System.Drawing.Size(28, 13);
-            this.buttonColorMov1.TabIndex = 7;
+            this.buttonColorMov1.TabIndex = 19;
             this.buttonColorMov1.UseVisualStyleBackColor = true;
             this.buttonColorMov1.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
@@ -405,7 +407,7 @@
             0});
             this.numericUpDownGraph3.Name = "numericUpDownGraph3";
             this.numericUpDownGraph3.Size = new System.Drawing.Size(41, 20);
-            this.numericUpDownGraph3.TabIndex = 6;
+            this.numericUpDownGraph3.TabIndex = 24;
             this.numericUpDownGraph3.Value = new decimal(new int[] {
             100,
             0,
@@ -422,7 +424,7 @@
             0});
             this.numericUpDownGraph2.Name = "numericUpDownGraph2";
             this.numericUpDownGraph2.Size = new System.Drawing.Size(41, 20);
-            this.numericUpDownGraph2.TabIndex = 5;
+            this.numericUpDownGraph2.TabIndex = 21;
             this.numericUpDownGraph2.Value = new decimal(new int[] {
             50,
             0,
@@ -448,7 +450,7 @@
             0});
             this.numericUpDownGraph1.Name = "numericUpDownGraph1";
             this.numericUpDownGraph1.Size = new System.Drawing.Size(41, 20);
-            this.numericUpDownGraph1.TabIndex = 3;
+            this.numericUpDownGraph1.TabIndex = 18;
             this.numericUpDownGraph1.Value = new decimal(new int[] {
             10,
             0,
@@ -461,7 +463,7 @@
             this.checkBoxMovAvg3.Location = new System.Drawing.Point(6, 87);
             this.checkBoxMovAvg3.Name = "checkBoxMovAvg3";
             this.checkBoxMovAvg3.Size = new System.Drawing.Size(64, 17);
-            this.checkBoxMovAvg3.TabIndex = 2;
+            this.checkBoxMovAvg3.TabIndex = 23;
             this.checkBoxMovAvg3.Text = "Graph 3";
             this.checkBoxMovAvg3.UseVisualStyleBackColor = true;
             // 
@@ -471,7 +473,7 @@
             this.checkBoxMovAvg2.Location = new System.Drawing.Point(6, 63);
             this.checkBoxMovAvg2.Name = "checkBoxMovAvg2";
             this.checkBoxMovAvg2.Size = new System.Drawing.Size(64, 17);
-            this.checkBoxMovAvg2.TabIndex = 1;
+            this.checkBoxMovAvg2.TabIndex = 20;
             this.checkBoxMovAvg2.Text = "Graph 2";
             this.checkBoxMovAvg2.UseVisualStyleBackColor = true;
             // 
@@ -481,22 +483,24 @@
             this.checkBoxMovAvg1.Location = new System.Drawing.Point(6, 38);
             this.checkBoxMovAvg1.Name = "checkBoxMovAvg1";
             this.checkBoxMovAvg1.Size = new System.Drawing.Size(64, 17);
-            this.checkBoxMovAvg1.TabIndex = 0;
+            this.checkBoxMovAvg1.TabIndex = 17;
             this.checkBoxMovAvg1.Text = "Graph 1";
             this.checkBoxMovAvg1.UseVisualStyleBackColor = true;
             // 
             // buttonApply
             // 
-            this.buttonApply.Location = new System.Drawing.Point(19, 576);
+            this.buttonApply.Location = new System.Drawing.Point(19, 533);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(160, 23);
-            this.buttonApply.TabIndex = 10;
+            this.buttonApply.TabIndex = 26;
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
             // groupBoxDisplayType
             // 
+            this.groupBoxDisplayType.Controls.Add(this.buttonColorStickFigures);
+            this.groupBoxDisplayType.Controls.Add(this.checkBoxStickFigures);
             this.groupBoxDisplayType.Controls.Add(this.buttonColorOpen);
             this.groupBoxDisplayType.Controls.Add(this.buttonColorHigh);
             this.groupBoxDisplayType.Controls.Add(this.buttonColorLow);
@@ -510,7 +514,7 @@
             this.groupBoxDisplayType.Controls.Add(this.checkBoxCandleSticks);
             this.groupBoxDisplayType.Location = new System.Drawing.Point(19, 238);
             this.groupBoxDisplayType.Name = "groupBoxDisplayType";
-            this.groupBoxDisplayType.Size = new System.Drawing.Size(160, 144);
+            this.groupBoxDisplayType.Size = new System.Drawing.Size(160, 165);
             this.groupBoxDisplayType.TabIndex = 9;
             this.groupBoxDisplayType.TabStop = false;
             this.groupBoxDisplayType.Text = "Graph Type";
@@ -520,7 +524,7 @@
             this.buttonColorOpen.Location = new System.Drawing.Point(92, 112);
             this.buttonColorOpen.Name = "buttonColorOpen";
             this.buttonColorOpen.Size = new System.Drawing.Size(28, 15);
-            this.buttonColorOpen.TabIndex = 11;
+            this.buttonColorOpen.TabIndex = 14;
             this.buttonColorOpen.UseVisualStyleBackColor = true;
             this.buttonColorOpen.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
@@ -529,16 +533,16 @@
             this.buttonColorHigh.Location = new System.Drawing.Point(92, 89);
             this.buttonColorHigh.Name = "buttonColorHigh";
             this.buttonColorHigh.Size = new System.Drawing.Size(28, 15);
-            this.buttonColorHigh.TabIndex = 10;
+            this.buttonColorHigh.TabIndex = 12;
             this.buttonColorHigh.UseVisualStyleBackColor = true;
             this.buttonColorHigh.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
             // buttonColorLow
             // 
-            this.buttonColorLow.Location = new System.Drawing.Point(92, 43);
+            this.buttonColorLow.Location = new System.Drawing.Point(92, 135);
             this.buttonColorLow.Name = "buttonColorLow";
             this.buttonColorLow.Size = new System.Drawing.Size(28, 15);
-            this.buttonColorLow.TabIndex = 9;
+            this.buttonColorLow.TabIndex = 16;
             this.buttonColorLow.UseVisualStyleBackColor = true;
             this.buttonColorLow.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
@@ -547,7 +551,7 @@
             this.buttonColorCandleUp.Location = new System.Drawing.Point(92, 19);
             this.buttonColorCandleUp.Name = "buttonColorCandleUp";
             this.buttonColorCandleUp.Size = new System.Drawing.Size(28, 15);
-            this.buttonColorCandleUp.TabIndex = 8;
+            this.buttonColorCandleUp.TabIndex = 5;
             this.buttonColorCandleUp.UseVisualStyleBackColor = true;
             this.buttonColorCandleUp.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
@@ -556,7 +560,7 @@
             this.buttonColorCandleDown.Location = new System.Drawing.Point(126, 19);
             this.buttonColorCandleDown.Name = "buttonColorCandleDown";
             this.buttonColorCandleDown.Size = new System.Drawing.Size(28, 15);
-            this.buttonColorCandleDown.TabIndex = 7;
+            this.buttonColorCandleDown.TabIndex = 6;
             this.buttonColorCandleDown.UseVisualStyleBackColor = true;
             this.buttonColorCandleDown.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
@@ -565,7 +569,7 @@
             this.buttonColorClose.Location = new System.Drawing.Point(92, 66);
             this.buttonColorClose.Name = "buttonColorClose";
             this.buttonColorClose.Size = new System.Drawing.Size(28, 15);
-            this.buttonColorClose.TabIndex = 5;
+            this.buttonColorClose.TabIndex = 10;
             this.buttonColorClose.UseVisualStyleBackColor = true;
             this.buttonColorClose.Click += new System.EventHandler(this.buttonColorPicker_Click);
             // 
@@ -575,7 +579,7 @@
             this.checkBoxClose.Location = new System.Drawing.Point(7, 66);
             this.checkBoxClose.Name = "checkBoxClose";
             this.checkBoxClose.Size = new System.Drawing.Size(52, 17);
-            this.checkBoxClose.TabIndex = 4;
+            this.checkBoxClose.TabIndex = 9;
             this.checkBoxClose.Text = "Close";
             this.checkBoxClose.UseVisualStyleBackColor = true;
             // 
@@ -585,17 +589,17 @@
             this.checkBoxOpen.Location = new System.Drawing.Point(7, 112);
             this.checkBoxOpen.Name = "checkBoxOpen";
             this.checkBoxOpen.Size = new System.Drawing.Size(52, 17);
-            this.checkBoxOpen.TabIndex = 3;
+            this.checkBoxOpen.TabIndex = 13;
             this.checkBoxOpen.Text = "Open";
             this.checkBoxOpen.UseVisualStyleBackColor = true;
             // 
             // checkBoxLow
             // 
             this.checkBoxLow.AutoSize = true;
-            this.checkBoxLow.Location = new System.Drawing.Point(7, 43);
+            this.checkBoxLow.Location = new System.Drawing.Point(7, 135);
             this.checkBoxLow.Name = "checkBoxLow";
             this.checkBoxLow.Size = new System.Drawing.Size(46, 17);
-            this.checkBoxLow.TabIndex = 2;
+            this.checkBoxLow.TabIndex = 15;
             this.checkBoxLow.Text = "Low";
             this.checkBoxLow.UseVisualStyleBackColor = true;
             // 
@@ -605,7 +609,7 @@
             this.checkBoxHigh.Location = new System.Drawing.Point(7, 89);
             this.checkBoxHigh.Name = "checkBoxHigh";
             this.checkBoxHigh.Size = new System.Drawing.Size(48, 17);
-            this.checkBoxHigh.TabIndex = 1;
+            this.checkBoxHigh.TabIndex = 11;
             this.checkBoxHigh.Text = "High";
             this.checkBoxHigh.UseVisualStyleBackColor = true;
             // 
@@ -615,7 +619,7 @@
             this.checkBoxCandleSticks.Location = new System.Drawing.Point(7, 20);
             this.checkBoxCandleSticks.Name = "checkBoxCandleSticks";
             this.checkBoxCandleSticks.Size = new System.Drawing.Size(88, 17);
-            this.checkBoxCandleSticks.TabIndex = 0;
+            this.checkBoxCandleSticks.TabIndex = 4;
             this.checkBoxCandleSticks.Text = "CandleSticks";
             this.checkBoxCandleSticks.UseVisualStyleBackColor = true;
             // 
@@ -655,7 +659,7 @@
             this.dateTimePickerStart.Location = new System.Drawing.Point(6, 36);
             this.dateTimePickerStart.Name = "dateTimePickerStart";
             this.dateTimePickerStart.Size = new System.Drawing.Size(99, 20);
-            this.dateTimePickerStart.TabIndex = 1;
+            this.dateTimePickerStart.TabIndex = 2;
             // 
             // label1
             // 
@@ -665,6 +669,25 @@
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Start Date:";
+            // 
+            // buttonColorStickFigures
+            // 
+            this.buttonColorStickFigures.Location = new System.Drawing.Point(92, 43);
+            this.buttonColorStickFigures.Name = "buttonColorStickFigures";
+            this.buttonColorStickFigures.Size = new System.Drawing.Size(28, 15);
+            this.buttonColorStickFigures.TabIndex = 8;
+            this.buttonColorStickFigures.UseVisualStyleBackColor = true;
+            this.buttonColorStickFigures.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // checkBoxStickFigures
+            // 
+            this.checkBoxStickFigures.AutoSize = true;
+            this.checkBoxStickFigures.Location = new System.Drawing.Point(7, 43);
+            this.checkBoxStickFigures.Name = "checkBoxStickFigures";
+            this.checkBoxStickFigures.Size = new System.Drawing.Size(84, 17);
+            this.checkBoxStickFigures.TabIndex = 7;
+            this.checkBoxStickFigures.Text = "StickFigures";
+            this.checkBoxStickFigures.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -765,6 +788,8 @@
         private System.Windows.Forms.Button buttonColorCandleDown;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ToolStripMenuItem propertiesPanelToolStripMenuItem;
+        private System.Windows.Forms.Button buttonColorStickFigures;
+        private System.Windows.Forms.CheckBox checkBoxStickFigures;
     }
 }
 

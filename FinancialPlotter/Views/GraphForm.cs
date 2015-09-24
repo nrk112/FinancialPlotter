@@ -40,12 +40,12 @@ namespace FinancialPlotter.Views
         private void GraphForm_Paint(object sender, PaintEventArgs e)
         {
             SetupGraphingTransform();
-            Graphics g2 = this.CreateGraphics();
+            //Graphics g2 = this.CreateGraphics();
 
             if (this.WindowState != FormWindowState.Minimized)
             {
                 e.Graphics.Transform = graphTransform.matrix;
-                g2.Transform = graphTransform.matrix;
+                //g2.Transform = graphTransform.matrix;
             }
 
             if (GraphMajorGridLines) DrawMajorGrid(e.Graphics);
@@ -55,6 +55,7 @@ namespace FinancialPlotter.Views
             if (GraphClose) DrawGraphClose(e.Graphics);
             if (GraphOpen) DrawGraphOpen(e.Graphics);
             if (GraphCandleSticks) DrawGraphCandleSticks(e.Graphics);
+            if (GraphStickFigures) DrawGraphStickFigures(e.Graphics);
 
             //if (GraphCandleSticks)
             //{
@@ -78,6 +79,7 @@ namespace FinancialPlotter.Views
         public bool GraphClose { get; set; }
         public bool GraphOpen { get; set; }
         public bool GraphCandleSticks { get; set; }
+        public bool GraphStickFigures { get; set; }
         public bool GraphMovAvg1 { get; private set; }
         public bool GraphMovAvg2 { get; private set; }
         public bool GraphMovAvg3 { get; private set; }
@@ -97,6 +99,7 @@ namespace FinancialPlotter.Views
         public Color ColorGraphMov3 { get; set; }
         public Color ColorGraphCandleUp { get; set; }
         public Color ColorGraphCandleDown { get; set; }
+        public Color ColorGraphStickFigures { get; set; }
 
         #endregion Properties **********************
 
@@ -141,10 +144,13 @@ namespace FinancialPlotter.Views
             ColorGraphLow = Color.DarkBlue;
             ColorGraphCandleDown = Color.DeepPink;
             ColorGraphCandleUp = Color.Turquoise;
+            ColorGraphStickFigures = Color.Black;
 
             MovAvg1Days = 10;
             MovAvg2Days = 50;
             MovAvg3Days = 100;
+
+            GraphClose = true;
         }
 
         private float getDaysCountInRange()
@@ -256,6 +262,34 @@ namespace FinancialPlotter.Views
             }
         }
 
+        private void DrawGraphStickFigures(Graphics g)
+        {
+            graphPen.Color = Color.Black;
+
+            float offset = 0.5f;
+            float thickness = offset * 2;
+
+            int dayIndex = 0;
+            foreach (IDailyQuery dailyQuery in Queries)
+            {
+                if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
+                {
+                    g.DrawLine(graphPen, dayIndex, dailyQuery.High, dayIndex, dailyQuery.Low);
+                    if (dailyQuery.Open < dailyQuery.Close)
+                    {
+                        g.DrawLine(graphPen, dayIndex, dailyQuery.Open, (dayIndex - offset), dailyQuery.Open);
+                        g.DrawLine(graphPen, dayIndex, dailyQuery.Close, (dayIndex + offset), dailyQuery.Close);
+                    }
+                    else
+                    {
+                        g.DrawLine(graphPen, dayIndex, dailyQuery.Open, (dayIndex + offset), dailyQuery.Open);
+                        g.DrawLine(graphPen, dayIndex, dailyQuery.Close, (dayIndex - offset), dailyQuery.Close);
+                    }
+                    dayIndex += 1;
+                }
+            }
+        }
+
         private void DrawGraphOpen(Graphics g)
         {
             GraphicsPath gp = new GraphicsPath();
@@ -266,7 +300,7 @@ namespace FinancialPlotter.Views
             {
                 if (StartDate <= dailyQuery.Date && EndDate >= dailyQuery.Date)
                 {
-                    if (dayIndex %2 == 0)
+                    if (dayIndex % 2 == 0)
                     {
                         firstPoint = new PointF(dayIndex, dailyQuery.Open);
                     }

@@ -98,6 +98,7 @@ namespace FinancialPlotter.Views
                 graph.GraphMinorGridLines = checkBoxMinorGrid.Checked;
                 graph.GraphMajorGridLines = checkBoxMajorGrid.Checked;
                 graph.GraphCandleSticks = checkBoxCandleSticks.Checked;
+                graph.GraphStickFigures = checkBoxStickFigures.Checked;
                 graph.GraphClose = checkBoxClose.Checked;
                 graph.GraphHigh = checkBoxHigh.Checked;
                 graph.GraphLow = checkBoxLow.Checked;
@@ -133,6 +134,7 @@ namespace FinancialPlotter.Views
                 checkBoxMinorGrid.Checked = graph.GraphMinorGridLines;
                 checkBoxMajorGrid.Checked = graph.GraphMajorGridLines;
                 checkBoxCandleSticks.Checked = graph.GraphCandleSticks;
+                checkBoxStickFigures.Checked = graph.GraphStickFigures;
                 checkBoxClose.Checked = graph.GraphClose;
                 checkBoxHigh.Checked = graph.GraphHigh;
                 checkBoxLow.Checked = graph.GraphLow;
@@ -169,13 +171,13 @@ namespace FinancialPlotter.Views
                 buttonColorClose.BackColor = graph.ColorGraphClose;
                 buttonColorCandleDown.BackColor = graph.ColorGraphCandleDown;
                 buttonColorCandleUp.BackColor = graph.ColorGraphCandleUp;
+                buttonColorStickFigures.BackColor = graph.ColorGraphStickFigures;
                 buttonColorMov1.BackColor = graph.ColorGraphMov1;
                 buttonColorMov2.BackColor = graph.ColorGraphMov2;
                 buttonColorMov3.BackColor = graph.ColorGraphMov3;
                 buttonColorOpen.BackColor = graph.ColorGraphOpen;
                 buttonColorHigh.BackColor = graph.ColorGraphHigh;
                 buttonColorLow.BackColor = graph.ColorGraphLow;
-
             }
         }
         #endregion
@@ -232,6 +234,10 @@ namespace FinancialPlotter.Views
                 else if (colorButton.Equals(buttonColorOpen))
                 {
                     graph.ColorGraphOpen = colorDialog1.Color;
+                }
+                else if (colorButton.Equals(buttonColorStickFigures))
+                {
+                    graph.ColorGraphStickFigures = colorDialog1.Color;
                 }
 
                 //Set the new color of the button that was clicked.
