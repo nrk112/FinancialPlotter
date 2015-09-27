@@ -30,12 +30,12 @@ namespace FinancialPlotter.Models
             this.AdjClose = adjClose;
         }
 
-        public DateTime Date { get; }
-        public float Open { get; }
-        public float High { get; }
-        public float Low { get; }
-        public float Close { get; }
-        public float Volume { get; }
-        public float AdjClose { get; }
+        public DateTime Date { get; private set; }
+        public float Open { get; private set; }
+        public float High { get; private set; }
+        public float Low { get; private set; }
+        public float Close { get; private set; }
+        public float Volume { get; private set; }
+        public float AdjClose { get; private set; }
     }
 }

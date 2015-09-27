@@ -34,7 +34,7 @@ namespace FinancialPlotter.Models
             }
         }
 
-        public List<IDailyQuery> Queries { get; }
+        public List<IDailyQuery> Queries { get; private set; }
 
         public bool HasOptions
         {
@@ -55,7 +55,7 @@ namespace FinancialPlotter.Models
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             
             openFileDialog1.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.FilterIndex = 1;
             openFileDialog1.RestoreDirectory = true;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)

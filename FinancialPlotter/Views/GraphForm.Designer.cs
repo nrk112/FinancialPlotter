@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.toolTipCoordinates = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // GraphForm
@@ -40,6 +42,8 @@
             this.ResizeBegin += new System.EventHandler(this.GraphForm_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.GraphForm_ResizeEnd);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GraphForm_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GraphForm_MouseClick);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GraphForm_MouseMove_1);
             this.Resize += new System.EventHandler(this.GraphForm_Resize);
             this.StyleChanged += new System.EventHandler(this.GraphForm_ResizeEnd);
             this.ResumeLayout(false);
@@ -47,5 +51,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.ToolTip toolTipCoordinates;
     }
 }
