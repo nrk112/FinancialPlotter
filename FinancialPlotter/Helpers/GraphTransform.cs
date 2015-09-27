@@ -27,12 +27,10 @@ namespace FinancialPlotter.Helpers
             SetupMatrix();
         }
 
-        float scaleX;
-        float scaleY;
-
-        float shiftX;
-        float shiftY;
-
+        public float scaleX { get; private set; }
+        public float scaleY { get; private set; }
+        public float shiftX { get; private set; }
+        public float shiftY { get; private set; }
         public float u1 { get; private set; }
         public float v1 { get; private set; }
         public float u2 { get; private set; }

@@ -50,8 +50,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.controlPanel = new System.Windows.Forms.Panel();
             this.labelEditing = new System.Windows.Forms.Label();
@@ -71,6 +69,8 @@
             this.checkBoxMovAvg1 = new System.Windows.Forms.CheckBox();
             this.buttonApply = new System.Windows.Forms.Button();
             this.groupBoxDisplayType = new System.Windows.Forms.GroupBox();
+            this.buttonColorStickFigures = new System.Windows.Forms.Button();
+            this.checkBoxStickFigures = new System.Windows.Forms.CheckBox();
             this.buttonColorOpen = new System.Windows.Forms.Button();
             this.buttonColorHigh = new System.Windows.Forms.Button();
             this.buttonColorLow = new System.Windows.Forms.Button();
@@ -88,11 +88,10 @@
             this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.buttonColorStickFigures = new System.Windows.Forms.Button();
-            this.checkBoxStickFigures = new System.Windows.Forms.CheckBox();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
-            this.statusStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             this.groupBoxGrid.SuspendLayout();
             this.groupBoxMovingAvg.SuspendLayout();
@@ -101,6 +100,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGraph1)).BeginInit();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxTimerPeriod.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -135,19 +135,19 @@
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
             // 
@@ -202,7 +202,7 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // windowsMenu
@@ -219,28 +219,28 @@
             // cascadeToolStripMenuItem
             // 
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cascadeToolStripMenuItem.Text = "&Cascade";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.CascadeToolStripMenuItem_Click);
             // 
             // tileVerticalToolStripMenuItem
             // 
             this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.tileVerticalToolStripMenuItem.Text = "Tile &Vertical";
             this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.TileVerticalToolStripMenuItem_Click);
             // 
             // tileHorizontalToolStripMenuItem
             // 
             this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.tileHorizontalToolStripMenuItem.Text = "Tile &Horizontal";
             this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.TileHorizontalToolStripMenuItem_Click);
             // 
             // closeAllToolStripMenuItem
             // 
             this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeAllToolStripMenuItem.Text = "C&lose All";
             this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.CloseAllToolStripMenuItem_Click);
             // 
@@ -255,7 +255,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "&About ... ...";
             // 
             // toolStrip
@@ -277,22 +277,6 @@
             this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.openToolStripButton.Text = "Open";
             this.openToolStripButton.Click += new System.EventHandler(this.OpenFile);
-            // 
-            // statusStrip
-            // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 659);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1264, 22);
-            this.statusStrip.TabIndex = 2;
-            this.statusStrip.Text = "StatusStrip";
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
-            this.toolStripStatusLabel.Text = "Status";
             // 
             // controlPanel
             // 
@@ -519,6 +503,25 @@
             this.groupBoxDisplayType.TabStop = false;
             this.groupBoxDisplayType.Text = "Graph Type";
             // 
+            // buttonColorStickFigures
+            // 
+            this.buttonColorStickFigures.Location = new System.Drawing.Point(92, 43);
+            this.buttonColorStickFigures.Name = "buttonColorStickFigures";
+            this.buttonColorStickFigures.Size = new System.Drawing.Size(28, 15);
+            this.buttonColorStickFigures.TabIndex = 8;
+            this.buttonColorStickFigures.UseVisualStyleBackColor = true;
+            this.buttonColorStickFigures.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            // 
+            // checkBoxStickFigures
+            // 
+            this.checkBoxStickFigures.AutoSize = true;
+            this.checkBoxStickFigures.Location = new System.Drawing.Point(7, 43);
+            this.checkBoxStickFigures.Name = "checkBoxStickFigures";
+            this.checkBoxStickFigures.Size = new System.Drawing.Size(84, 17);
+            this.checkBoxStickFigures.TabIndex = 7;
+            this.checkBoxStickFigures.Text = "StickFigures";
+            this.checkBoxStickFigures.UseVisualStyleBackColor = true;
+            // 
             // buttonColorOpen
             // 
             this.buttonColorOpen.Location = new System.Drawing.Point(92, 112);
@@ -670,24 +673,21 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Start Date:";
             // 
-            // buttonColorStickFigures
+            // toolStripStatusLabel
             // 
-            this.buttonColorStickFigures.Location = new System.Drawing.Point(92, 43);
-            this.buttonColorStickFigures.Name = "buttonColorStickFigures";
-            this.buttonColorStickFigures.Size = new System.Drawing.Size(28, 15);
-            this.buttonColorStickFigures.TabIndex = 8;
-            this.buttonColorStickFigures.UseVisualStyleBackColor = true;
-            this.buttonColorStickFigures.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel.Text = "Status";
             // 
-            // checkBoxStickFigures
+            // statusStrip
             // 
-            this.checkBoxStickFigures.AutoSize = true;
-            this.checkBoxStickFigures.Location = new System.Drawing.Point(7, 43);
-            this.checkBoxStickFigures.Name = "checkBoxStickFigures";
-            this.checkBoxStickFigures.Size = new System.Drawing.Size(84, 17);
-            this.checkBoxStickFigures.TabIndex = 7;
-            this.checkBoxStickFigures.Text = "StickFigures";
-            this.checkBoxStickFigures.UseVisualStyleBackColor = true;
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel});
+            this.statusStrip.Location = new System.Drawing.Point(0, 659);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1264, 22);
+            this.statusStrip.TabIndex = 2;
+            this.statusStrip.Text = "StatusStrip";
             // 
             // MainForm
             // 
@@ -708,8 +708,6 @@
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
             this.controlPanel.ResumeLayout(false);
             this.controlPanel.PerformLayout();
             this.groupBoxGrid.ResumeLayout(false);
@@ -723,6 +721,8 @@
             this.groupBoxDisplayType.PerformLayout();
             this.groupBoxTimerPeriod.ResumeLayout(false);
             this.groupBoxTimerPeriod.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -732,9 +732,7 @@
 
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tileHorizontalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileMenu;
@@ -790,6 +788,8 @@
         private System.Windows.Forms.ToolStripMenuItem propertiesPanelToolStripMenuItem;
         private System.Windows.Forms.Button buttonColorStickFigures;
         private System.Windows.Forms.CheckBox checkBoxStickFigures;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.StatusStrip statusStrip;
     }
 }
 

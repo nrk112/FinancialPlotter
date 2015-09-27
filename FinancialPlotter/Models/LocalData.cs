@@ -34,7 +34,7 @@ namespace FinancialPlotter.Models
             }
         }
 
-        public List<IDailyQuery> Queries { get; }
+        public List<IDailyQuery> Queries { get; private set; }
 
         public bool HasOptions
         {

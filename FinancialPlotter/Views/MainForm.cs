@@ -30,6 +30,13 @@ namespace FinancialPlotter.Views
             }
         }
 
+        private void MainForm_MdiChildActivate(object sender, EventArgs e)
+        {
+            graph = (GraphForm)ActiveMdiChild;
+            SetControlPanelState();
+        }
+
+        #region Tool Strip
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -50,6 +57,15 @@ namespace FinancialPlotter.Views
             controlPanel.Visible = propertiesPanelToolStripMenuItem.Checked;
         }
 
+        private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form childForm in MdiChildren)
+            {
+                childForm.Close();
+            }
+        }
+        #endregion
+
         #region Window Sorting
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -67,21 +83,7 @@ namespace FinancialPlotter.Views
         }
         #endregion
 
-        private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (Form childForm in MdiChildren)
-            {
-                childForm.Close();
-            }
-        }
-
-        private void MainForm_MdiChildActivate(object sender, EventArgs e)
-        {
-            graph = (GraphForm)ActiveMdiChild;
-            SetControlPanelState();
-        }
-
-        #region Control Panel
+        #region Properties Panel
         GraphForm graph;
 
         private void buttonApply_Click(object sender, EventArgs e)
@@ -180,7 +182,6 @@ namespace FinancialPlotter.Views
                 buttonColorLow.BackColor = graph.ColorGraphLow;
             }
         }
-        #endregion
 
         /// <summary>
         /// When a color button is pressed, it will call this function to set the appropriate colors.
@@ -244,5 +245,6 @@ namespace FinancialPlotter.Views
                 colorButton.BackColor = colorDialog1.Color;
             }
         }
+        #endregion
     }
 }
